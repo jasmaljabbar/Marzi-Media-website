@@ -1,0 +1,967 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f7f7f2" />
+    <title>Marzi Media — One Partner. Every Business Solution.</title>
+    <meta
+      name="description"
+      content="Marzi Media is a creative digital marketing and advertising agency in Ambalavayal, Wayanad. Discover our branding, website design, social campaigns, packaging, print and video work."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="Marzi Media — Make your brand mean more."
+    />
+    <meta
+      property="og:description"
+      content="Strategy, design and storytelling. One creative partner for your brand’s next chapter."
+    />
+    <meta property="og:site_name" content="Marzi Media" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+    <link
+      rel="preload"
+      href="assets/hero-packaging.webp"
+      as="image"
+      fetchpriority="high"
+    />
+    <link
+      rel="preload"
+      href="assets/manrope.ttf"
+      as="font"
+      type="font/ttf"
+      crossorigin
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="script.js" defer></script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Marzi Media",
+        "description": "Creative digital marketing and advertising agency offering branding, websites, social media, print, copywriting, packaging and video production.",
+        "telephone": "+91 95268 96340",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Ambalavayal",
+          "addressRegion": "Wayanad",
+          "addressCountry": "IN"
+        },
+        "contactPoint": [
+          {
+            "@type": "ContactPoint",
+            "telephone": "+91 95268 96340",
+            "contactType": "customer service"
+          },
+          {
+            "@type": "ContactPoint",
+            "telephone": "+91 80758 91492",
+            "contactType": "customer service"
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <div class="container nav-wrap">
+        <div class="brand-lockup">
+          <a class="brand" href="#home" aria-label="Marzi Media, back to top">
+            <svg class="brand-mark" viewBox="0 0 46 46" aria-hidden="true">
+              <rect x="1" y="19" width="7" height="26" rx="1" fill="#f5d63e" />
+              <rect x="12" y="2" width="7" height="43" rx="1" fill="#ed4438" />
+              <rect x="23" y="11" width="7" height="34" rx="1" fill="#f47a20" />
+              <circle cx="40" cy="41" r="4" fill="currentColor" />
+            </svg>
+          </a>
+          <!-- The wordmark rolls to the chapter being read. The chapter links announce the same location with aria-current. -->
+          <div class="chapter-ticker" aria-hidden="true">
+            <div class="chapter-ticker-track">
+              <span class="ticker-item brand-name"
+                >MARZI<span>MEDIA</span></span
+              >
+              <span class="ticker-item"
+                ><strong>Our work</strong><small>CHAPTER 01</small></span
+              >
+              <span class="ticker-item"
+                ><strong>What we do</strong><small>CHAPTER 02</small></span
+              >
+              <span class="ticker-item"
+                ><strong>About us</strong><small>CHAPTER 03</small></span
+              >
+              <span class="ticker-item"
+                ><strong>Why Marzi</strong><small>CHAPTER 04</small></span
+              >
+              <span class="ticker-item"
+                ><strong>Let’s talk</strong><small>CHAPTER 05</small></span
+              >
+            </div>
+          </div>
+        </div>
+        <div class="header-actions">
+          <a class="nav-cta" href="#contact"
+            >Let’s talk <span aria-hidden="true">↗</span></a
+          >
+          <button
+            class="menu-toggle"
+            type="button"
+            aria-label="Open chapter menu"
+            aria-haspopup="dialog"
+            aria-controls="site-menu"
+            aria-expanded="false"
+          >
+            <span class="menu-progress" aria-hidden="true"
+              ><span class="menu-progress-half is-right"><span></span></span
+              ><span class="menu-progress-half is-left"><span></span></span
+            ></span>
+            <svg class="star-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path class="spoke spoke-v" d="M12 3v18" />
+              <path class="spoke spoke-h" d="M3 12h18" />
+              <path class="spoke" d="m5.64 5.64 12.72 12.72" />
+              <path class="spoke" d="m18.36 5.64-12.72 12.72" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Chapter rail: plain links that work without JavaScript. Fill lines show reading progress. -->
+    <nav class="chapter-rail" aria-label="Chapters">
+      <ol>
+        <li>
+          <a href="#work"
+            ><span class="rail-number">01</span>
+            <span class="rail-label">Our work</span
+            ><span class="rail-line" aria-hidden="true"
+              ><span class="rail-fill"></span></span
+          ></a>
+        </li>
+        <li>
+          <a href="#services"
+            ><span class="rail-number">02</span>
+            <span class="rail-label">What we do</span
+            ><span class="rail-line" aria-hidden="true"
+              ><span class="rail-fill"></span></span
+          ></a>
+        </li>
+        <li>
+          <a href="#about"
+            ><span class="rail-number">03</span>
+            <span class="rail-label">About us</span
+            ><span class="rail-line" aria-hidden="true"
+              ><span class="rail-fill"></span></span
+          ></a>
+        </li>
+        <li>
+          <a href="#why"
+            ><span class="rail-number">04</span>
+            <span class="rail-label">Why Marzi</span
+            ><span class="rail-line" aria-hidden="true"
+              ><span class="rail-fill"></span></span
+          ></a>
+        </li>
+        <li>
+          <a href="#contact"
+            ><span class="rail-number">05</span>
+            <span class="rail-label">Let’s talk</span
+            ><span class="rail-line" aria-hidden="true"
+              ><span class="rail-fill"></span></span
+          ></a>
+        </li>
+      </ol>
+    </nav>
+
+    <main id="main">
+      <!-- The hero features original client artwork extracted from the supplied portfolio. -->
+      <section class="hero container" id="home" aria-labelledby="hero-title">
+        <div class="hero-copy" data-stagger>
+          <p class="eyebrow" data-reveal="up">
+            <span class="tiny-star" aria-hidden="true">✳</span> INDEPENDENT
+            THINKING. CONNECTED CREATIVITY.
+          </p>
+          <h1 id="hero-title">
+            <span class="headline-line"><span>Your story.</span></span
+            ><br /><span class="headline-line"><span>Our craft.</span></span
+            ><br /><span class="headline-line hero-title-accent"
+              ><span>Real impact.</span></span
+            >
+          </h1>
+          <p class="hero-description" data-reveal="up">
+            We turn what makes your business unique into a brand people notice,
+            connect with, and remember.
+          </p>
+          <div class="hero-actions" data-reveal="up">
+            <a class="button button-dark" href="#work"
+              >Explore our work <span aria-hidden="true">↗</span></a
+            ><a class="text-link" href="#contact"
+              >Build with us <span aria-hidden="true">↗</span></a
+            >
+          </div>
+          <div class="hero-signoff" data-reveal="up">
+            <span class="signoff-line"></span>
+            <p>One partner.<br /><strong>Every business solution.</strong></p>
+          </div>
+        </div>
+        <div class="hero-art">
+          <div class="art-topline">
+            <span>A LITTLE TASTE OF WHAT WE DO</span
+            ><span>01 / SELECTED WORK</span>
+          </div>
+          <div class="hero-photo">
+            <img
+              src="assets/hero-packaging.webp"
+              width="760"
+              height="824"
+              alt="Saleena Pickles mango packaging, photographed among fresh mangoes"
+              fetchpriority="high"
+            /><span class="image-tag">MADE TO STAND OUT.</span>
+          </div>
+          <a class="hero-project" href="#project-saleena"
+            ><span
+              ><small>BRAND EXPERIENCES, BEAUTIFULLY MADE</small
+              ><strong>Good taste. Great first impressions.</strong></span
+            ><span class="circle-arrow" aria-hidden="true">↗</span></a
+          >
+          <div class="creative-stamp" aria-hidden="true">
+            <span>IDEAS WITH</span><b>✳</b><span>INTENTION</span>
+          </div>
+        </div>
+        <div class="hero-bottom" data-reveal="fade">
+          <span>STRATEGY MEETS A LITTLE CREATIVE INSTINCT.</span
+          ><a href="#clients"
+            >A scroll worth taking <span aria-hidden="true">↓</span></a
+          >
+        </div>
+      </section>
+
+      <section class="clients" id="clients" aria-label="Selected clients">
+        <div class="container">
+          <p class="eyebrow">GOOD COMPANY. GREAT COLLABORATIONS.</p>
+          <div class="client-list">
+            <span class="client-eyouth">e.youth <small>mathrubhumi</small></span
+            ><span class="client-jg"
+              >JG <small>INSTITUTE OF AI & HI</small></span
+            ><span class="client-byte">byte<span>™</span></span
+            ><span class="client-edc">English<br />Debate Club</span
+            ><span class="client-saleena">Saleena <small>PICKLES</small></span
+            ><span class="client-urban">URBAN<br />CULTURE</span>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="section container work-section"
+        id="work"
+        aria-labelledby="work-title"
+      >
+        <div class="section-heading" data-reveal="up">
+          <div>
+            <p class="eyebrow">01 / SELECTED WORK</p>
+            <h2 id="work-title">
+              Different brands.<br />Same <span class="serif">obsession.</span>
+            </h2>
+          </div>
+          <p>
+            Thoughtful ideas. Distinctive execution.<br />A few stories we’ve
+            helped bring to life.
+          </p>
+        </div>
+        <div class="work-grid" data-stagger>
+          <article class="project" id="project-saleena">
+            <button
+              class="project-image"
+              type="button"
+              data-project="saleena"
+              aria-label="View Saleena Pickles packaging project"
+            >
+              <img
+                src="assets/saleena.webp"
+                alt="Saleena Pickles mango jars with green labels and rich product photography"
+                width="1280"
+                height="720"
+                loading="lazy"
+              /><span class="project-open" aria-hidden="true">↗</span>
+            </button>
+            <div class="project-meta">
+              <h3>Saleena Pickles</h3>
+              <span>PACKAGING DESIGN</span>
+            </div>
+          </article>
+          <article class="project project-offset">
+            <button
+              class="project-image"
+              type="button"
+              data-project="eyouth"
+              aria-label="View e.youth Mathrubhumi brand identity"
+            >
+              <img
+                src="assets/eyouth.webp"
+                alt="Green e.youth Mathrubhumi identity across social media, stationery and tote bags"
+                width="1280"
+                height="694"
+                loading="lazy"
+              /><span class="project-open" aria-hidden="true">↗</span>
+            </button>
+            <div class="project-meta">
+              <h3>e.youth Mathrubhumi</h3>
+              <span>BRAND IDENTITY</span>
+            </div>
+          </article>
+          <article class="project">
+            <button
+              class="project-image"
+              type="button"
+              data-project="urban"
+              aria-label="View Urban Culture packaging project"
+            >
+              <img
+                src="assets/urban-culture.webp"
+                alt="Urban Culture cosmetic packaging presented in a fashion-led campaign"
+                width="1280"
+                height="720"
+                loading="lazy"
+              /><span class="project-open" aria-hidden="true">↗</span>
+            </button>
+            <div class="project-meta">
+              <h3>Urban Culture</h3>
+              <span>PACKAGING DESIGN</span>
+            </div>
+          </article>
+          <article class="project project-offset">
+            <button
+              class="project-image"
+              type="button"
+              data-project="english"
+              aria-label="View English Debate Club brand identity"
+            >
+              <img
+                src="assets/english-debate.webp"
+                alt="English Debate Club blue identity across a website, phone, stationery and signage"
+                width="1280"
+                height="694"
+                loading="lazy"
+              /><span class="project-open" aria-hidden="true">↗</span>
+            </button>
+            <div class="project-meta">
+              <h3>English Debate Club</h3>
+              <span>BRAND IDENTITY</span>
+            </div>
+          </article>
+        </div>
+        <div class="work-note" data-reveal="fade">
+          <span>Every brand has a story. Let’s make yours the next one.</span
+          ><a class="text-link" href="#contact"
+            >Start something good <span aria-hidden="true">↗</span></a
+          >
+        </div>
+      </section>
+
+      <section
+        class="services section"
+        id="services"
+        aria-labelledby="services-title"
+      >
+        <div class="container services-layout">
+          <div class="services-intro">
+            <p class="eyebrow">02 / WHAT WE DO</p>
+            <h2 id="services-title">
+              Big picture.<br />Every <span class="serif">detail.</span>
+            </h2>
+            <p>
+              From the first idea to the final frame. The creative and digital
+              skills your brand needs, all working together.
+            </p>
+            <a class="button button-light" href="#contact"
+              >Find your solution <span aria-hidden="true">↗</span></a
+            >
+            <div class="service-progress" aria-hidden="true"><span></span></div>
+            <span class="service-asterisk" aria-hidden="true">✳</span>
+          </div>
+          <div class="service-list">
+            <details open>
+              <summary>
+                <span class="service-number">01</span>
+                <h3>Logo & branding</h3>
+                <span class="detail-icon" aria-hidden="true"></span>
+              </summary>
+              <div class="service-body">
+                <p>
+                  A clear identity, a distinctive voice, and a visual world that
+                  feels unmistakably yours.
+                </p>
+                <span>LOGO DESIGN / VISUAL IDENTITY / BRAND DIRECTION</span>
+              </div>
+            </details>
+            <details>
+              <summary>
+                <span class="service-number">02</span>
+                <h3>Website design</h3>
+                <span class="detail-icon" aria-hidden="true"></span>
+              </summary>
+              <div class="service-body">
+                <p>
+                  Thoughtful digital experiences that make your business easy to
+                  discover and a pleasure to explore.
+                </p>
+                <span>WEB DESIGN / DIGITAL EXPERIENCES</span>
+              </div>
+            </details>
+            <details>
+              <summary>
+                <span class="service-number">03</span>
+                <h3>Social media & campaigns</h3>
+                <span class="detail-icon" aria-hidden="true"></span>
+              </summary>
+              <div class="service-body">
+                <p>
+                  Creative campaigns and social media packages that keep your
+                  brand’s story connected across every post.
+                </p>
+                <span>SOCIAL POSTS / CAMPAIGNS / DIGITAL ADVERTISING</span>
+              </div>
+            </details>
+            <details>
+              <summary>
+                <span class="service-number">04</span>
+                <h3>Print media</h3>
+                <span class="detail-icon" aria-hidden="true"></span>
+              </summary>
+              <div class="service-body">
+                <p>
+                  Bring your brand into the physical world with considered
+                  layouts and print-ready communication.
+                </p>
+                <span>BROCHURES / PUBLICATIONS / PRINT COLLATERAL</span>
+              </div>
+            </details>
+            <details>
+              <summary>
+                <span class="service-number">05</span>
+                <h3>Creative copywriting</h3>
+                <span class="detail-icon" aria-hidden="true"></span>
+              </summary>
+              <div class="service-body">
+                <p>
+                  The right words for your story. Ideas and copy that speak
+                  clearly and make people feel something.
+                </p>
+                <span>BRAND MESSAGING / CAMPAIGN COPY / CONTENT</span>
+              </div>
+            </details>
+            <details>
+              <summary>
+                <span class="service-number">06</span>
+                <h3>Packaging design</h3>
+                <span class="detail-icon" aria-hidden="true"></span>
+              </summary>
+              <div class="service-body">
+                <p>
+                  Turn a first glance into a lasting impression with packaging
+                  that brings your product’s character forward.
+                </p>
+                <span>LABEL DESIGN / PRODUCT PACKAGING</span>
+              </div>
+            </details>
+            <details>
+              <summary>
+                <span class="service-number">07</span>
+                <h3>Posters & visual content</h3>
+                <span class="detail-icon" aria-hidden="true"></span>
+              </summary>
+              <div class="service-body">
+                <p>
+                  Bold visuals for launches, events, and everyday moments worth
+                  sharing.
+                </p>
+                <span>EVENT POSTERS / PROMOTIONS / CREATIVE DESIGN</span>
+              </div>
+            </details>
+            <details>
+              <summary>
+                <span class="service-number">08</span>
+                <h3>Video production</h3>
+                <span class="detail-icon" aria-hidden="true"></span>
+              </summary>
+              <div class="service-body">
+                <p>
+                  Compelling visual stories, from creative direction and
+                  concepts to production and editing.
+                </p>
+                <span>CONTENT VIDEOS / DOCUMENTARIES / MOTION GRAPHICS</span>
+              </div>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="section about-section"
+        id="about"
+        aria-labelledby="about-title"
+      >
+        <div class="about-lead container">
+          <p class="eyebrow">03 / THE PEOPLE BEHIND THE IDEAS</p>
+          <h2 id="about-title">
+            Good work starts<br />with people who
+            <span class="serif">care.</span>
+          </h2>
+          <div class="about-copy">
+            <p>
+              We’re Marzi Media. A creative digital marketing and advertising
+              agency bringing creativity and strategy to the same table.
+            </p>
+            <p>
+              We believe every business has a unique story. Our designers,
+              storytellers, and marketing team turn that story into meaningful
+              visuals, memorable content, and digital experiences that connect.
+            </p>
+          </div>
+        </div>
+        <section class="crew-showcase" id="crew" aria-labelledby="crew-title">
+          <div class="crew-topline container">
+            <h3 class="eyebrow" id="crew-title">MEET THE MARZI CREW</h3>
+          </div>
+          <!-- Original groups remain readable without JavaScript. Visual clones are hidden from assistive technology.
+               loading precedes src on each portrait: copies keep attribute order, so they stay lazy too. -->
+          <div
+            class="crew-row crew-row-1"
+            tabindex="0"
+            role="group"
+            aria-label="Crew portraits, row 1. Scroll horizontally to explore."
+          >
+            <div class="crew-track">
+              <div class="crew-group" role="list">
+                <figure class="crew-card" role="listitem">
+                  <img
+                    loading="lazy"
+                    decoding="async"
+                    src="assets/crew-web/muhammed-jabir-ali.webp"
+                    alt=""
+                    width="608"
+                    height="760"
+                  />
+                  <figcaption>
+                    <strong>Muhammed Jabir Ali</strong
+                    ><span>CEO &amp; Founder</span>
+                  </figcaption>
+                </figure>
+                <figure class="crew-card" role="listitem">
+                  <img
+                    loading="lazy"
+                    decoding="async"
+                    src="assets/crew-web/muhammed-rahiyad-k.webp"
+                    alt=""
+                    width="352"
+                    height="760"
+                  />
+                  <figcaption>
+                    <strong>Muhammed Rahiyad K</strong
+                    ><span>Chief Operating Officer (COO)</span>
+                  </figcaption>
+                </figure>
+                <span class="crew-word" aria-hidden="true">Meet</span>
+                <figure class="crew-card" role="listitem">
+                  <img
+                    loading="lazy"
+                    decoding="async"
+                    src="assets/crew-web/ali-k.webp"
+                    alt=""
+                    width="570"
+                    height="760"
+                  />
+                  <figcaption>
+                    <strong>Ali K</strong><span>General Manager</span>
+                  </figcaption>
+                </figure>
+                <figure class="crew-card" role="listitem">
+                  <img
+                    loading="lazy"
+                    decoding="async"
+                    src="assets/crew-web/mirshad.webp"
+                    alt=""
+                    width="640"
+                    height="718"
+                  />
+                  <figcaption>
+                    <strong>Mirshad</strong><span>Operation manager</span>
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+          </div>
+          <div
+            class="crew-row crew-row-2"
+            tabindex="0"
+            role="group"
+            aria-label="Crew portraits, row 2. Scroll horizontally to explore."
+          >
+            <div class="crew-track">
+              <div class="crew-group" role="list">
+                <figure class="crew-card" role="listitem">
+                  <img
+                    loading="lazy"
+                    decoding="async"
+                    src="assets/crew-web/amina-marjana.webp"
+                    alt=""
+                    width="640"
+                    height="638"
+                  />
+                  <figcaption>
+                    <strong>Amina Marjana</strong
+                    ><span>Project Coordinator</span>
+                  </figcaption>
+                </figure>
+                <span class="crew-word" aria-hidden="true">the</span>
+                <figure class="crew-card" role="listitem">
+                  <img
+                    loading="lazy"
+                    decoding="async"
+                    src="assets/crew-web/shafeena-k.webp"
+                    alt=""
+                    width="570"
+                    height="760"
+                  />
+                  <figcaption>
+                    <strong>Shafeena K</strong><span>HR manager</span>
+                  </figcaption>
+                </figure>
+                <figure class="crew-card" role="listitem">
+                  <img
+                    loading="lazy"
+                    decoding="async"
+                    src="assets/crew-web/badusha-ap.webp"
+                    alt=""
+                    width="640"
+                    height="507"
+                  />
+                  <figcaption>
+                    <strong>Badusha AP</strong><span>Marketing Manager</span>
+                  </figcaption>
+                </figure>
+                <figure class="crew-card" role="listitem">
+                  <img
+                    loading="lazy"
+                    decoding="async"
+                    src="assets/crew-web/fayas-c.webp"
+                    alt=""
+                    width="570"
+                    height="760"
+                  />
+                  <figcaption>
+                    <strong>Fayas C</strong
+                    ><span>Finance &amp; Accounts Manager</span>
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+          </div>
+          <div
+            class="crew-row crew-row-3"
+            tabindex="0"
+            role="group"
+            aria-label="Crew portraits, row 3. Scroll horizontally to explore."
+          >
+            <div class="crew-track">
+              <div class="crew-group" role="list">
+                <figure class="crew-card" role="listitem">
+                  <img
+                    loading="lazy"
+                    decoding="async"
+                    src="assets/crew-web/shanid.webp"
+                    alt=""
+                    width="640"
+                    height="640"
+                  />
+                  <figcaption>
+                    <strong>Shanid</strong
+                    ><span>Video &amp; Motion Graphics Specialist</span>
+                  </figcaption>
+                </figure>
+                <figure class="crew-card" role="listitem">
+                  <img
+                    loading="lazy"
+                    decoding="async"
+                    src="assets/crew-web/muhammed-sinan-k.webp"
+                    alt=""
+                    width="491"
+                    height="592"
+                  />
+                  <figcaption>
+                    <strong>Muhammed Sinan K</strong
+                    ><span>Graphic Designer</span>
+                  </figcaption>
+                </figure>
+                <span class="crew-word" aria-hidden="true">Crew</span>
+                <figure class="crew-card" role="listitem">
+                  <img
+                    loading="lazy"
+                    decoding="async"
+                    src="assets/crew-web/nida-nazrin.webp"
+                    alt=""
+                    width="570"
+                    height="760"
+                  />
+                  <figcaption>
+                    <strong>Nida Nazrin</strong><span>Graphic Designer</span>
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <section class="why-section section" id="why" aria-labelledby="why-title">
+        <div class="container">
+          <div class="section-heading" data-reveal="up">
+            <div>
+              <p class="eyebrow">04 / WHY MARZI</p>
+              <h2 id="why-title">
+                A partner in your<br />next <span class="serif">chapter.</span>
+              </h2>
+            </div>
+            <p>Built on collaboration.<br />Focused on what makes you, you.</p>
+          </div>
+          <div class="reasons">
+            <article>
+              <span class="reason-number">01 /</span>
+              <h3>One connected team.</h3>
+              <p>
+                Branding, content, digital, and production under one roof. A
+                consistent story wherever your audience finds you.
+              </p>
+            </article>
+            <article>
+              <span class="reason-number">02 /</span>
+              <h3>Ideas with a purpose.</h3>
+              <p>
+                Creativity grounded in your business. Every visual and every
+                word has a role in telling your story.
+              </p>
+            </article>
+            <article>
+              <span class="reason-number">03 /</span>
+              <h3>Your story comes first.</h3>
+              <p>
+                We start with what makes your business different, then shape a
+                creative direction that belongs to you.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="contact-section section"
+        id="contact"
+        aria-labelledby="contact-title"
+      >
+        <div class="container">
+          <p class="eyebrow">HAVE SOMETHING IN MIND?</p>
+          <div class="contact-heading">
+            <h2 id="contact-title">
+              Let’s make<br /><span class="serif">it matter.</span>
+            </h2>
+            <span class="contact-arrow" aria-hidden="true">↗</span>
+          </div>
+          <div class="contact-bottom" data-reveal="fade">
+            <p>
+              A new brand, a fresh perspective, or your next big idea.<br />Tell
+              us where you want to go.
+            </p>
+            <div id="contact-actions">
+              <a
+                class="button button-dark"
+                id="contact-primary"
+                href="https://wa.me/919526896340"
+                >Let’s talk on WhatsApp <span aria-hidden="true">↗</span></a
+              >
+              <p class="contact-caption" id="contact-caption">
+                Ambalavayal, Wayanad · India
+              </p>
+            </div>
+          </div>
+          <div
+            class="contact-links"
+            id="contact-links"
+            aria-label="Contact numbers"
+          >
+            <div>
+              <span class="eyebrow">LET’S CONNECT</span
+              ><a class="contact-number" href="tel:+919526896340"
+                >+91 95268 96340</a
+              ><a href="https://wa.me/919526896340">WhatsApp this number ↗</a>
+            </div>
+            <div>
+              <span class="eyebrow">ANOTHER WAY TO REACH US</span
+              ><a class="contact-number" href="tel:+918075891492"
+                >+91 80758 91492</a
+              ><a href="https://wa.me/918075891492">WhatsApp this number ↗</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-top">
+        <a
+          class="footer-wordmark"
+          href="#home"
+          aria-label="Marzi Media, back to top"
+          >marzi<span>✳</span></a
+        >
+        <p>One partner.<br />Every business solution.</p>
+        <a class="back-top" href="#home"
+          >Back to top <span aria-hidden="true">↑</span></a
+        >
+      </div>
+      <div class="container footer-bottom">
+        <span>© <span id="year">2026</span> Marzi Media</span
+        ><span>CREATIVITY, WITH INTENTION.</span>
+      </div>
+    </footer>
+
+    <!-- Native dialogs provide focus containment, Escape handling and accessible modal semantics. -->
+    <dialog
+      class="project-dialog"
+      id="project-dialog"
+      aria-labelledby="dialog-title"
+    >
+      <button
+        class="dialog-close"
+        type="button"
+        data-close
+        aria-label="Close project"
+      >
+        ×</button
+      ><img
+        id="dialog-image"
+        src="assets/saleena.webp"
+        alt=""
+        width="1280"
+        height="720"
+      />
+      <div class="dialog-copy">
+        <p class="eyebrow" id="dialog-category"></p>
+        <h2 id="dialog-title">Selected project</h2>
+        <p id="dialog-description"></p>
+        <a class="text-link" href="#contact" id="dialog-contact"
+          >Create something with us <span aria-hidden="true">↗</span></a
+        >
+      </div>
+    </dialog>
+
+    <!-- Chapter menu. The native modal dialog contains focus, closes with Escape and makes the page behind it inert. -->
+    <dialog class="menu-overlay" id="site-menu" aria-labelledby="menu-title">
+      <div class="menu-shell container">
+        <p class="eyebrow menu-eyebrow" id="menu-title">
+          <span aria-hidden="true">✳︎</span> Chapters
+        </p>
+        <button
+          class="menu-close"
+          type="button"
+          data-close
+          aria-label="Close chapter menu"
+        >
+          <svg class="star-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path class="spoke spoke-v" d="M12 3v18" />
+            <path class="spoke spoke-h" d="M3 12h18" />
+            <path class="spoke" d="m5.64 5.64 12.72 12.72" />
+            <path class="spoke" d="m18.36 5.64-12.72 12.72" />
+          </svg>
+        </button>
+        <nav class="menu-nav" aria-label="Chapter menu">
+          <ol class="menu-list">
+            <li>
+              <a href="#work"
+                ><span class="menu-number">01</span>
+                <span class="menu-word"
+                  ><span class="menu-sans">Our work</span
+                  ><span class="menu-serif" aria-hidden="true"
+                    >Our work</span
+                  ></span
+                ><span class="menu-arrow" aria-hidden="true">↗</span></a
+              >
+            </li>
+            <li>
+              <a href="#services"
+                ><span class="menu-number">02</span>
+                <span class="menu-word"
+                  ><span class="menu-sans">What we do</span
+                  ><span class="menu-serif" aria-hidden="true"
+                    >What we do</span
+                  ></span
+                ><span class="menu-arrow" aria-hidden="true">↗</span></a
+              >
+            </li>
+            <li>
+              <a href="#about"
+                ><span class="menu-number">03</span>
+                <span class="menu-word"
+                  ><span class="menu-sans">About us</span
+                  ><span class="menu-serif" aria-hidden="true"
+                    >About us</span
+                  ></span
+                ><span class="menu-arrow" aria-hidden="true">↗</span></a
+              >
+            </li>
+            <li>
+              <a href="#why"
+                ><span class="menu-number">04</span>
+                <span class="menu-word"
+                  ><span class="menu-sans">Why Marzi</span
+                  ><span class="menu-serif" aria-hidden="true"
+                    >Why Marzi</span
+                  ></span
+                ><span class="menu-arrow" aria-hidden="true">↗</span></a
+              >
+            </li>
+            <li>
+              <a href="#contact"
+                ><span class="menu-number">05</span>
+                <span class="menu-word"
+                  ><span class="menu-sans">Let’s talk</span
+                  ><span class="menu-serif" aria-hidden="true"
+                    >Let’s talk</span
+                  ></span
+                ><span class="menu-arrow" aria-hidden="true">↗</span></a
+              >
+            </li>
+          </ol>
+        </nav>
+        <div class="menu-footer">
+          <div>
+            <span class="eyebrow">LET’S CONNECT</span
+            ><a class="menu-phone" href="tel:+919526896340">+91 95268 96340</a
+            ><a href="https://wa.me/919526896340"
+              >WhatsApp<span class="visually-hidden"> +91 95268 96340</span>
+              <span aria-hidden="true">↗</span></a
+            >
+          </div>
+          <div>
+            <span class="eyebrow">ANOTHER WAY TO REACH US</span
+            ><a class="menu-phone" href="tel:+918075891492">+91 80758 91492</a
+            ><a href="https://wa.me/918075891492"
+              >WhatsApp<span class="visually-hidden"> +91 80758 91492</span>
+              <span aria-hidden="true">↗</span></a
+            >
+          </div>
+          <p>
+            <span class="eyebrow">FIND US</span>Ambalavayal, Wayanad · India
+          </p>
+        </div>
+      </div>
+    </dialog>
+    <noscript
+      ><p class="noscript-note">
+        JavaScript is disabled. Browse all work and services above; project
+        enlargements require JavaScript. Phone and WhatsApp links work without
+        it.
+      </p></noscript
+    >
+  </body>
+</html>
