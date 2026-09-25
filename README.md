@@ -49,7 +49,7 @@ Replace the example repository URL. If an `origin` already exists, check it with
 
 - `index.html` — semantic sections, SEO metadata, structured organization data, project dialog.
 - `styles.css` — brand tokens, layout, component styles, responsive breakpoints, reduced-motion rules.
-- `script.js` — chapter menu, chapter tracking (rail, rolling wordmark, progress ring), project dialogs, one-time reveals, and the scroll-driven crew rows.
+- `script.js` — chapter menu, chapter tracking (rail, rolling wordmark, progress ring), project dialogs, shared scroll scenes, one-time secondary reveals, and the scroll-driven crew rows.
 - `assets/` — optimized portfolio artwork, favicon, local Manrope font and SIL Open Font License.
 - `BRAND-NOTES.md` — source facts, design decisions, and content limitations.
 
@@ -57,7 +57,7 @@ Replace the example repository URL. If an `origin` already exists, check it with
 
 Change colors in the `:root` block in `styles.css`. Project cards live in HTML; their enlarged views are described in the `projects` object in `script.js`. Service descriptions use native `<details>` elements and work without JavaScript. Contact links and location live in `index.html`.
 
-There are no invented testimonials, performance statistics, awards, locations, or project results. Client names are shown as text rather than presented as official logo files. Crew names and roles come from the owner-supplied portrait filenames in `assets/Crew/`. All 11 supplied crew members appear in the photo wall.
+There are no invented testimonials, performance statistics, awards, locations, or project results. Client names are shown as text rather than presented as official logo files. Crew names and roles come from the owner-supplied portrait filenames in `assets/Crew/`. All 12 supplied crew members appear in the photo wall.
 
 ## Chapter navigation
 
@@ -88,19 +88,25 @@ Each portrait lists `loading="lazy"` before `src`: copies keep attribute order, 
 - No build step, API keys, cookies, or required third-party requests.
 - Metadata includes title, description, Open Graph text, Twitter summary metadata, theme color, favicon, and organization structured data. No domain, canonical, or sitemap is fabricated. Add the final canonical URL and a sitemap after choosing the public domain.
 
-## Validation
+## Hero composition
 
-Current Chromium browser checks cover 320, 375, 390, 768, 1024, 1440, 1920, and 2560 px widths; mobile menu, project dialog open/close, service expansion, verified phone/WhatsApp links, reduced motion, no-JavaScript navigation, asset loading, and console errors. Final QA details appear in `artifacts/QA.md` in the local workspace; artifacts are excluded from Git by default.
+The hero presents three real portfolio disciplines inside a dark navy workspace: Glam Walk website design (PDF page 15), English Debate Club identity (page 11), and e.youth social content (page 7). Browser, brand board, and phone are HTML/CSS layers. Only the Glam Walk screenshot is a new asset: `assets/hero-glam-walk.webp`, 1100 × 527, approximately 43 KB. Existing identity assets are reused. No external stock or generated artwork is required.
+
+Fixed aspect ratios reserve the composition's space. Image dimensions are explicit; the main website image is preloaded. Each layer follows the existing hero scroll progress with smaller travel on mobile. Reduced motion and disabled JavaScript leave a complete static composition. The hero project link goes to selected work, where Saleena Pickles remains intact.
 
 ## Motion and UI maintenance
 
-The original HTML/CSS/vanilla JavaScript architecture and customer content are preserved. No runtime dependencies were added. CSS is grouped by component, followed by responsive and reduced-motion overrides; retired leadership-card styles and duplicate contact rules were removed.
+The existing HTML/CSS/vanilla JavaScript architecture remains. No runtime dependencies were added. CSS is grouped by component, followed by responsive and reduced-motion overrides.
 
-- `data-reveal` selects a one-time entrance: default/up, left, right, image (small scale), or fade. Keep text-heavy areas and the client strip mostly static.
-- `data-stagger` on a parent gives its direct reveal children 65 ms intervals, capped at 195 ms. Hero copy, projects, service rows, and reasons share this mechanism.
-- A single Intersection Observer activates reveals. Focus reveals content immediately, scrolled-past content remains visible, and completed animations clean up their classes. Without observer support, content stays visible.
-- Motion tokens (`--ease-out`, `--motion-duration`) live in `:root`. Mobile simplifies entrances to short vertical movement. Reduced motion removes animation, smooth scrolling, decorative hover transforms, and crew movement, including live preference changes.
+- `createScrollScenes` shares the existing scheduled scroll frame with navigation and crew. Geometry is cached and refreshed after resize, font loading, and disclosure changes. An Intersection Observer limits active scenes. No scroll interception or continuous animation loop is used.
+- Scene progress controls hero layer separation, project image masks and scale, service-panel arrival and progress rail, about-copy emphasis, reason-card arrival, contact glow/type, and footer arrival. Scrolling backward restores earlier states.
+- `data-reveal` remains for secondary entrances such as section headings. Main scroll scenes use their own progress rather than combining two entrance effects on one element.
+- Motion tokens (`--ease-out`, `--motion-duration`) live in `:root`. Mobile removes large translations and image curtains, and reduces hero layer travel. Reduced motion disables scroll scenes, entrances, smooth scrolling, decorative hover transforms, and crew movement, including live preference changes.
 - The sticky header keeps its original document footprint; the chapter rail, floating menu button and menu overlay the page without shifting sections. `aria-current="location"` identifies the current chapter. Native anchor scrolling retains browser history and respects header clearance.
 - Native service disclosures and project dialogs remain the source of their open/closed state. No replacement accordion or modal library is required.
 
-Current screenshots and executable local QA scripts are in `artifacts/modern-*` and `artifacts/modernization-*`. QA tooling is separate from production and uses an externally installed Playwright module through `PLAYWRIGHT_MODULE`. See `artifacts/QA.md` for the current checks and limitations.
+## Validation
+
+Latest hero checks: Chromium layouts at 320, 375, 390, 768, 1024, 1440, and 1920 px; all three hero images loaded; no horizontal overflow at checked positions; all four project dialogs; all eight service toggles; mobile menu Escape and focus return; actual desktop hero scroll reversal; no captured console errors. DOM tests also cover scene reversal, reduced-motion changes, lifecycle cleanup, and missing Intersection Observer.
+
+See `artifacts/SCROLL-HERO-QA.md` for current evidence and limitations. Earlier screenshots and performance numbers in `artifacts/QA.md` describe the previous hero and are historical. QA artifacts and original full-resolution portraits are excluded from the delivery ZIP.
