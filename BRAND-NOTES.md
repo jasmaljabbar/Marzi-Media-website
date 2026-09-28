@@ -39,7 +39,7 @@ Website wording groups and clarifies these labels without inventing additional s
 - Urban Culture — page 26, packaging.
 - HACA Design School documentary — page 30; no verified playback link supplied, so no nonfunctional play button appears.
 
-Featured work uses pages 7, 11, 24, and 26 as optimized WebP images. The hero combines the Glam Walk website screenshot extracted from page 15 with existing English Debate Club and e.youth portfolio artwork. The previous page-25 packaging hero is no longer used. Descriptions discuss visible design elements, not unverified business outcomes. Client strip names are typography, not recreated official logo assets.
+Featured work uses pages 7, 11, 24, and 26 as optimized WebP images. The hero combines the Glam Walk website screenshot extracted from page 15 with existing English Debate Club and e.youth portfolio artwork. The previous page-25 packaging hero is no longer used. Descriptions discuss visible design elements, not unverified business outcomes. The client strip uses logos extracted from the portfolio (pages 6, 8, 10, 13, 26) with their backgrounds removed; they are not redrawn. Urbane Culture's white lettering is recoloured charcoal for the light strip, and English Debate Club uses its mark only because the portfolio lockup reads "Engish". Saleena Pickles remains typography because the portfolio shows its name only on jar photography.
 
 ## Team
 
@@ -59,7 +59,7 @@ The owner separately verified two public phone/WhatsApp numbers: +91 95268 96340
 
 ## Asset licensing
 
-Portfolio artwork was provided by the user for this website; copyright remains with its respective owners. Manrope is distributed under the SIL Open Font License, included in `assets/OFL-Manrope.txt`. The favicon and simple header mark follow the supplied logo's geometric bar motif. Client names do not imply endorsements beyond the portfolio's attribution.
+Portfolio artwork was provided by the user for this website; copyright remains with its respective owners. Manrope is distributed under the SIL Open Font License, included in `assets/OFL-Manrope.txt`. The favicon and simple header mark follow the supplied logo's geometric bar motif. Client names and logos do not imply endorsements beyond the portfolio's attribution.
 
 ## Crew wall update
 

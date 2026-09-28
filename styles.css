@@ -1798,43 +1798,35 @@ h2 {
   font-weight: 700;
   line-height: 1.1;
 }
-.client-eyouth {
-  font-size: 1.7rem;
-  letter-spacing: -0.1em;
-}
-.client-eyouth small {
+/* Logos share a baseline height; --logo-h evens out their optical weight. */
+.client-logo {
   display: block;
-  font-size: 0.75rem;
-  letter-spacing: 0;
-  font-weight: 500;
-  text-align: center;
-  margin-top: 3px;
+  width: auto;
+  height: calc(var(--logo-h) * var(--logo-scale, 1));
+  max-width: 100%;
+  object-fit: contain;
+}
+.client-eyouth {
+  --logo-h: 46px;
 }
 .client-jg {
-  font-size: 2.1rem;
-  display: flex;
-  gap: 9px;
-  align-items: center;
-}
-.client-jg small {
-  max-width: 69px;
-  font-size: 0.75rem;
-  line-height: 1.4;
-  font-weight: 600;
+  --logo-h: 50px;
 }
 .client-byte {
-  font-size: 2.3rem;
-  font-weight: 500 !important;
-  letter-spacing: -0.09em;
-}
-.client-byte span {
-  font-size: 0.75rem;
-  vertical-align: top;
-  letter-spacing: 0;
+  --logo-h: 38px;
 }
 .client-edc {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   font-size: 1rem;
   letter-spacing: -0.04em;
+  color: var(--ink) !important;
+}
+.client-edc img {
+  flex: none;
+  width: auto;
+  height: calc(40px * var(--logo-scale, 1));
 }
 .client-saleena {
   font-family: var(--serif);
@@ -1850,9 +1842,8 @@ h2 {
   text-align: center;
   margin-top: 5px;
 }
-.client-urban {
-  font-size: 1.05rem;
-  letter-spacing: 0.04em;
+.client-urbane {
+  --logo-h: 54px;
 }
 /* Selected work. Entrances are one-time and class-based: transitions live on the revealed state,
    so hiding content before its entrance never animates. Scroll-linked motion is under .scroll-motion. */
@@ -2966,6 +2957,12 @@ dialog::backdrop {
   .container {
     width: calc(100% - 64px);
   }
+  .client-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;
+    gap: 32px 24px;
+  }
   .hero {
     gap: 0 5%;
     padding-top: 48px;
@@ -3094,22 +3091,13 @@ dialog::backdrop {
     padding: 30px 0;
   }
   .client-list {
+    --logo-scale: 0.85;
     display: grid;
     justify-items: center;
     gap: 29px 18px;
-    grid-template-columns: repeat(auto-fit, minmax(min(6rem, 100%), 1fr));
-  }
-  .client-jg {
-    font-size: 1.7rem;
-  }
-  .client-jg small {
-    font-size: 0.75rem;
-    max-width: 52px;
+    grid-template-columns: repeat(auto-fit, minmax(min(8rem, 100%), 1fr));
   }
   .client-edc {
-    font-size: 0.9rem;
-  }
-  .client-urban {
     font-size: 0.9rem;
   }
   .section {
