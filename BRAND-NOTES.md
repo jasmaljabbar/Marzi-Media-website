@@ -61,6 +61,12 @@ The owner separately verified two public phone/WhatsApp numbers: +91 95268 96340
 
 Portfolio artwork was provided by the user for this website; copyright remains with its respective owners. Manrope is distributed under the SIL Open Font License, included in `assets/OFL-Manrope.txt`. The favicon and simple header mark follow the supplied logo's geometric bar motif. Client names and logos do not imply endorsements beyond the portfolio's attribution.
 
+Software logos in the opening are trademarks of their owners and only indicate tools the team uses. Photoshop, Illustrator, Canva, Figma, Meta, Google Ads and Instagram come from Simple Icons (CC0); CapCut comes from theSVG (MIT), because Simple Icons has no CapCut mark. They are single-colour symbols and take their Simple Icons brand colour on hover.
+
+## Opening tools and brand line — 28 September 2026
+
+The portfolio names no software, so the owner confirmed which tools the team uses: Photoshop, Illustrator, Figma and Canva for design; CapCut for video; and Meta Business Suite, Google Ads and Instagram for marketing. No other tool is shown. They are grouped by the services the portfolio shows. Photoshop, Illustrator and Canva sit with Branding, Figma with Websites, Meta Business Suite, Google Ads and Instagram with Campaigns, and CapCut with a new Video line, which matches the portfolio's video-production page. “One partner. Every business solution.” is the portfolio's own cover and closing line. The existing opening, welcome lockup and split animation are unchanged; the pinned track is longer to hold the new phases.
+
 ## Crew wall update
 
 All 12 portraits supplied in `assets/Crew/` are displayed with names and roles taken from the filenames. Small WebP derivatives are stored in `assets/crew-web/`; original photographs are preserved. The earlier four-name leadership block is replaced by three portrait rows driven by page scroll position. Loop duplicates are presentation-only and hidden from assistive technology. Rows hold still when the page is not scrolling and reverse when scrolling upward. Keyboard and reduced-motion modes provide static horizontal browsing.

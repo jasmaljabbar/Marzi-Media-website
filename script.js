@@ -568,6 +568,53 @@
     } else hero.classList.add("hero-entered");
 
     const stage = opening.querySelector(".opening-stage");
+
+    // Tool cards fly from their place around the mark to a slot beside their discipline, then to
+    // the row under the brand line. CSS mixes the offsets by scroll progress; here they are
+    // measured from layout positions (offsetLeft and offsetTop ignore transforms), only when the
+    // stage size or fonts change, never in the scroll frame.
+    const tools = [...opening.querySelectorAll(".tool")];
+    const centreInStage = (element) => {
+      let x = element.offsetWidth / 2;
+      let y = element.offsetHeight / 2;
+      for (let node = element; node && node !== stage; node = node.offsetParent) {
+        x += node.offsetLeft;
+        y += node.offsetTop;
+      }
+      return [x, y];
+    };
+    const measureTools = () => {
+      tools.forEach((tool) => {
+        const slot = (container) =>
+          centreInStage(
+            opening.querySelector(
+              `${container} [data-slot="${tool.dataset.tool}"]`,
+            ),
+          );
+        const [x, y] = centreInStage(tool);
+        const [bx, by] = slot(".opening-words");
+        const [qx, qy] = slot(".quote-tools");
+        tool.style.setProperty("--bx", `${(bx - x).toFixed(1)}px`);
+        tool.style.setProperty("--by", `${(by - y).toFixed(1)}px`);
+        tool.style.setProperty("--qx", `${(qx - x).toFixed(1)}px`);
+        tool.style.setProperty("--qy", `${(qy - y).toFixed(1)}px`);
+      });
+    };
+    if ("ResizeObserver" in window)
+      new ResizeObserver(measureTools).observe(stage);
+    else window.addEventListener("resize", measureTools, { passive: true });
+    document.fonts.ready.then(measureTools);
+    measureTools();
+    // The cards' load entrance waits for the welcome to finish. A visitor who scrolls sooner
+    // should not find them missing, so the first scroll skips it.
+    const skipToolEntrance = () => {
+      if (window.scrollY <= 0) return;
+      opening.classList.add("opening-scrolled");
+      window.removeEventListener("scroll", skipToolEntrance);
+    };
+    window.addEventListener("scroll", skipToolEntrance, { passive: true });
+    skipToolEntrance();
+
     const tiltQuery = window.matchMedia(
       "(hover: hover) and (pointer: fine) and (min-width: 761px)",
     );

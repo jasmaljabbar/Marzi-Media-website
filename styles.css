@@ -945,22 +945,37 @@ h3 {
    base styles are the settled state, so reduced motion and print show the finished mark. With
    scroll scenes on, the opening becomes a pinned track: its "pin" scene progress (0 to 1) splits
    the slabs toward the sides and uncovers the studio's disciplines behind them. Script.js eases
-   the pointer tilt (--tilt-x, --tilt-y from −1 to 1) on desktop. Mobile keeps flat slabs. */
+   the pointer tilt (--tilt-x, --tilt-y from −1 to 1) on desktop. Mobile keeps flat slabs.
+   The mark is lifted by --lift so the welcome lockup can sit beneath it.
+   The track continues past the disciplines into the tools and the brand line. --p keeps the
+   original timings: it reaches 1 where the old track ended (130svh of scrolling on desktop, 90svh
+   on mobile) and runs on to --stretch. Later phases use values above 1. --leave runs from 0 to 1
+   while the hero rises over the end of the track (--overlap is where that begins). */
 .opening {
   --u: min(0.9vw, 1vh);
-  --p: var(--scene-progress, 0);
+  --lift: calc(var(--u) * 10);
+  --stretch: 1.769;
+  --overlap: 0.896;
+  --p: calc(var(--scene-progress, 0) * var(--stretch));
   --s: clamp(0, (var(--p) - 0.04) / 0.84, 1);
   --split: calc(var(--s) * var(--s) * (3 - 2 * var(--s)));
   --intro-out: clamp(0, var(--p) / 0.12, 1);
+  --leave: clamp(
+    0,
+    (var(--scene-progress, 0) - var(--overlap)) / (1 - var(--overlap)),
+    1
+  );
+  --word-size: clamp(2.6rem, 5.6vw, 5.4rem);
+  --chip: calc(var(--word-size) * 0.62);
   position: relative;
   height: 100vh;
   height: 100svh;
   margin-top: calc(var(--header-height) * -1);
 }
-/* The hero overlaps the end of the track, so it rises in while the disciplines are still held. */
+/* The hero overlaps the end of the track, so it rises in while the brand line is still held. */
 .scroll-motion .opening {
-  height: 230vh;
-  height: 230svh;
+  height: 330vh;
+  height: 330svh;
   margin-bottom: -24vh;
 }
 .opening-stage {
@@ -983,11 +998,12 @@ h3 {
   position: absolute;
   inset: 0;
   z-index: 1;
+  pointer-events: none;
 }
 .opening-scene {
   position: absolute;
   left: 50%;
-  top: 50%;
+  top: calc(50% - var(--lift));
   width: calc(var(--u) * 46);
   height: calc(var(--u) * 46);
   margin: calc(var(--u) * -23) 0 0 calc(var(--u) * -23);
@@ -1192,7 +1208,8 @@ h3 {
   stroke-width: 0.8;
   stroke-dasharray: 302;
 }
-/* The disciplines wait behind the mark and rise line by line as the slabs part. */
+/* The disciplines wait behind the mark and rise line by line as the slabs part, then lift out
+   of their masks before the brand line arrives. */
 .opening-words {
   position: absolute;
   inset: 0;
@@ -1200,7 +1217,7 @@ h3 {
   display: grid;
   place-content: center;
   justify-items: start;
-  font-size: clamp(2.6rem, 5.6vw, 5.4rem);
+  font-size: var(--word-size);
   font-weight: 600;
   line-height: 1.02;
   letter-spacing: -0.055em;
@@ -1210,6 +1227,8 @@ h3 {
   visibility: visible;
 }
 .opening-kicker {
+  --in: clamp(0, (var(--p) - 0.26) / 0.18, 1);
+  --out: clamp(0, (var(--p) - 0.94) / 0.08, 1);
   display: flex;
   align-items: center;
   margin-bottom: 0.9rem;
@@ -1219,8 +1238,8 @@ h3 {
   line-height: 1.7;
   text-transform: uppercase;
   color: var(--muted);
-  opacity: clamp(0, (var(--p) - 0.26) / 0.18, 1);
-  translate: 0 calc((1 - clamp(0, (var(--p) - 0.26) / 0.18, 1)) * 12px);
+  opacity: calc(var(--in) - var(--out));
+  translate: 0 calc((1 - var(--in)) * 12px - var(--out) * 12px);
 }
 .opening-kicker::after {
   content: "";
@@ -1231,6 +1250,7 @@ h3 {
 }
 .opening-line {
   --w: clamp(0, (var(--p) - 0.3 - var(--line) * 0.07) / 0.28, 1);
+  --x: clamp(0, (var(--p) - 0.96 - var(--line) * 0.025) / 0.1, 1);
   display: block;
   overflow: hidden;
   overflow: clip;
@@ -1240,7 +1260,24 @@ h3 {
 .opening-line > span {
   display: flex;
   align-items: center;
-  translate: 0 calc((1 - var(--w)) * (1 - var(--w)) * (1 - var(--w)) * 110%);
+  /* Lifting out travels further than rising in so descenders clear the mask's top edge. */
+  translate: 0
+    calc(
+      (1 - var(--w)) * (1 - var(--w)) * (1 - var(--w)) * 110% - var(--x) *
+        var(--x) * 135%
+    );
+}
+/* Empty places where the tool cards dock (see .tool); they match the card size. */
+.tool-slots {
+  display: flex;
+  gap: 0.18em;
+  margin-left: 0.34em;
+}
+.tool-slots > span,
+.quote-tools > span {
+  flex: none;
+  width: 0.62em;
+  height: 0.62em;
 }
 .opening-line i {
   width: 0.3em;
@@ -1257,6 +1294,232 @@ h3 {
 }
 .opening-line i.is-orange {
   background: var(--orange);
+}
+.opening-line i.is-dot {
+  border-radius: 50%;
+  background: var(--ink);
+}
+/* Welcome lockup. Base styles are the settled state; the entrance is in the motion block below.
+   Each word of the name is a mask whose bottom edge is the baseline rule, so on scroll the
+   letters sink back into the rule one by one while the slabs part. On desktop the lockup drifts
+   a little against the mark's pointer tilt, which gives the two a sense of depth. */
+.opening-welcome {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(50% + var(--u) * 20);
+  z-index: 0;
+  display: grid;
+  justify-items: center;
+  gap: calc(var(--u) * 1.4);
+  padding-inline: 16px;
+  translate: calc(var(--tilt-x, 0) * -10px) calc(var(--tilt-y, 0) * -6px);
+}
+.welcome-kicker {
+  display: flex;
+  align-items: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.32em;
+  line-height: 1.5;
+  text-transform: uppercase;
+  color: var(--muted);
+  opacity: calc(1 - clamp(0, var(--p) / 0.06, 1));
+}
+.welcome-kicker::before,
+.welcome-kicker::after {
+  content: "";
+  width: 32px;
+  height: 2px;
+  background: var(--orange);
+}
+.welcome-kicker::before {
+  margin-right: 14px;
+  transform-origin: right;
+}
+/* The last letter's tracking already adds 0.32em of space before this line. */
+.welcome-kicker::after {
+  margin-left: calc(14px - 0.32em);
+  transform-origin: left;
+}
+.welcome-name {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  column-gap: 0.24em;
+  font-size: min(var(--u) * 11, 11.5vw);
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+  color: var(--ink);
+}
+.welcome-name::after {
+  content: "";
+  position: absolute;
+  left: -0.3em;
+  right: -0.3em;
+  bottom: -1px;
+  height: 1px;
+  background: #20211f4d;
+  scale: calc(1 - clamp(0, (var(--p) - 0.06) / 0.08, 1)) 1;
+}
+.welcome-word {
+  display: flex;
+  overflow: hidden;
+  overflow: clip;
+  padding: 0.14em 0.08em 0;
+  margin: -0.14em -0.08em 0;
+}
+.welcome-word > span {
+  --out: clamp(0, (var(--p) - 0.015 - var(--i) * 0.007) / 0.09, 1);
+  display: block;
+  transform-origin: 0 100%;
+  translate: 0 calc(var(--out) * var(--out) * 118%);
+}
+/* Tools ecosystem. Each card sits on an ellipse around the lockup (--cx, --cy). Scroll carries it
+   to its discipline slot (--bx, --by, eased in by --e1 from --d) just before that line rises, so
+   a flight never crosses visible words; then, once the lines have lifted away and before the
+   brand line rises, to the row beneath it (--qx, --qy, eased in by --e2 from --q). Script.js measures those offsets from layout; without
+   them the cards simply stay in orbit. The first flight bows by --arc, and before docking a card
+   drifts against the pointer tilt by --depth. */
+.opening-tools {
+  --orx: min(var(--u) * 62, 50vw - 60px);
+  --ory: calc(var(--u) * 30);
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.tool {
+  --t1: clamp(0, (var(--p) - var(--d)) / 0.2, 1);
+  --e1: calc(var(--t1) * var(--t1) * (3 - 2 * var(--t1)));
+  --t2: clamp(0, (var(--p) - 1.03 - var(--q) * 0.012) / 0.15, 1);
+  --e2: calc(var(--t2) * var(--t2) * (3 - 2 * var(--t2)));
+  --bend: calc(var(--u) * 24 * var(--arc));
+  position: absolute;
+  left: calc(50% + var(--cx) * var(--orx));
+  top: calc(50% - var(--u) * 3 + var(--cy) * var(--ory));
+  width: var(--chip);
+  height: var(--chip);
+  margin: calc(var(--chip) / -2) 0 0 calc(var(--chip) / -2);
+  opacity: calc(1 - var(--leave));
+  translate:
+    calc(
+      var(--bx, 0px) * var(--e1) + (var(--qx, 0px) - var(--bx, 0px)) *
+        var(--e2) + var(--tilt-x, 0) * var(--depth) * 14px * (1 - var(--e1))
+    )
+    calc(
+      var(--by, 0px) * var(--e1) + (var(--qy, 0px) - var(--by, 0px)) *
+        var(--e2) +
+        var(--e1) * (1 - var(--e1)) * var(--bend) + var(--tilt-y, 0) * var(--depth) * 10px * (1 - var(--e1)) -
+        var(--leave) * 6vh
+    );
+}
+.tool-float {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.tool-card {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  border: 1px solid var(--line);
+  border-radius: 28%;
+  background: var(--white);
+  box-shadow: 0 10px 24px -12px #20211f40;
+  color: var(--ink);
+  transition:
+    color 250ms ease,
+    scale 300ms var(--ease-out);
+}
+.tool-card svg {
+  width: 52%;
+  height: 52%;
+  fill: currentColor;
+}
+/* On hover the logo takes its brand colour and the tool's name appears under the card. */
+.tool-card::after {
+  content: attr(data-name);
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  translate: -50% -4px;
+  white-space: nowrap;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 200ms ease,
+    translate 250ms var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .tool-card:hover {
+    color: var(--brand);
+    scale: 1.08;
+  }
+  .tool-card:hover::after {
+    opacity: 1;
+    translate: -50% 0;
+  }
+}
+/* Brand line. Each word rises in its own mask, so the line can wrap freely on narrow screens. */
+.opening-quote {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  padding-inline: 16px;
+  font-size: clamp(2.6rem, 6.2vw, 6rem);
+  font-weight: 600;
+  line-height: 1.02;
+  letter-spacing: -0.055em;
+  text-align: center;
+  visibility: hidden;
+  opacity: calc(1 - var(--leave));
+  translate: 0 calc(var(--leave) * -6vh);
+}
+.scroll-motion .opening-quote {
+  visibility: visible;
+}
+.quote-line {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  column-gap: 0.24em;
+}
+.quote-line.is-accent {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  color: var(--orange-ink);
+}
+.quote-word {
+  display: block;
+  overflow: hidden;
+  overflow: clip;
+  padding: 0.08em 0.12em 0.2em;
+  margin: -0.08em -0.12em -0.2em;
+}
+.quote-word > span {
+  --w: clamp(0, (var(--p) - 1.2 - var(--i) * 0.025) / 0.16, 1);
+  display: block;
+  translate: 0 calc((1 - var(--w)) * (1 - var(--w)) * (1 - var(--w)) * 120%);
+}
+.quote-tools {
+  display: flex;
+  justify-content: center;
+  gap: 0.2em;
+  margin-top: 0.6em;
+  font-size: var(--word-size);
 }
 .opening-meta {
   position: absolute;
@@ -1367,6 +1630,34 @@ h3 {
   .opening-cue-line::after {
     animation: opening-cue 2200ms var(--ease-in-out) 3200ms infinite;
   }
+  /* Welcome: the kicker arrives with the slabs, the rule draws, and the name rises as the dot lands. */
+  .welcome-kicker::before,
+  .welcome-kicker::after {
+    animation: opening-draw 700ms var(--ease-in-out) 700ms both;
+  }
+  .welcome-kicker > span {
+    animation: welcome-letter 800ms var(--ease-out) calc(850ms + var(--i) * 40ms)
+      both;
+  }
+  .welcome-name::after {
+    animation: opening-draw 900ms var(--ease-in-out) 1300ms both;
+  }
+  .welcome-word > span {
+    animation: welcome-rise 1000ms cubic-bezier(0.22, 1.16, 0.36, 1)
+      calc(1980ms + var(--i) * 55ms) both;
+  }
+  /* Once the name has settled, the tools drift in from outside the ellipse, then float. */
+  .tool-card {
+    animation: tool-enter 1100ms var(--ease-out) calc(3100ms + var(--i) * 90ms)
+      both;
+  }
+  .tool-float {
+    animation: tool-float 5.6s ease-in-out calc(4300ms + var(--i) * 260ms)
+      infinite alternate;
+  }
+  .opening-scrolled .tool-card {
+    animation: none;
+  }
 }
 @keyframes opening-fade {
   from {
@@ -1428,6 +1719,30 @@ h3 {
     translate: 0 260%;
   }
 }
+@keyframes welcome-letter {
+  from {
+    opacity: 0;
+    filter: blur(4px);
+    transform: translateY(0.7em);
+  }
+}
+@keyframes welcome-rise {
+  from {
+    transform: translateY(112%) rotate(7deg);
+  }
+}
+@keyframes tool-enter {
+  from {
+    opacity: 0;
+    translate: calc(var(--cx) * 48px) calc(var(--cy) * 48px);
+  }
+}
+/* The float fades out as a card docks, so docked cards hold still beside their words. */
+@keyframes tool-float {
+  to {
+    transform: translateY(calc(var(--u) * -1.1 * (1 - var(--e1))));
+  }
+}
 /* The hero headline waits for the hero to arrive, so it still rises after the opening. */
 .js .hero:not(.hero-entered) .headline-line > span {
   animation-play-state: paused;
@@ -1443,12 +1758,19 @@ h3 {
 }
 /* Mobile keeps the idea with flat slabs: no depth, tilt or sway, and a shorter track. */
 @media (max-width: 760px) {
+  /* 175svh of scrolling: --stretch is 175 / 90, and the hero overlap begins at 151 / 175. */
   .opening {
     --u: min(1.55vw, 0.8vh);
+    --stretch: 1.944;
+    --overlap: 0.863;
+    --word-size: clamp(2.1rem, 10.6vw, 2.6rem);
   }
   .scroll-motion .opening {
-    height: 190vh;
-    height: 190svh;
+    height: 275vh;
+    height: 275svh;
+  }
+  .opening-quote {
+    font-size: clamp(2.2rem, 11vw, 2.9rem);
   }
   .opening-stage {
     perspective: none;
@@ -1500,6 +1822,55 @@ h3 {
   }
   .opening-meta > :not(.opening-cue) {
     display: none;
+  }
+  /* The name stacks on two lines so it can stay large on narrow screens. */
+  .welcome-name {
+    flex-direction: column;
+    align-items: center;
+    font-size: min(var(--u) * 10.5, 17vw);
+    line-height: 0.88;
+  }
+  .welcome-kicker {
+    letter-spacing: 0.28em;
+  }
+  .welcome-kicker::after {
+    margin-left: calc(14px - 0.28em);
+  }
+}
+/* On short screens the welcome lockup needs the space the scroll cue and labels use, and on
+   landscape phones and short laptops a smaller unit keeps the mark clear of the header. */
+@media (max-height: 620px) {
+  .opening-meta {
+    display: none;
+  }
+}
+@media (max-height: 620px) and (min-width: 761px) {
+  .opening {
+    --u: min(1.15vw, 0.8vh);
+    --word-size: clamp(2rem, min(5.6vw, 9vh), 5.4rem);
+  }
+  .opening-quote {
+    font-size: clamp(2rem, min(6.2vw, 10vh), 6rem);
+  }
+}
+/* Phones and landscape phones skip the orbit: no cards on load, no float, tilt or bowed paths.
+   Each card fades in at its slot as its discipline rises, then glides to the quote row. */
+@media (max-width: 760px), (max-height: 500px) {
+  /* Anchored to the stage centre, which does not move when a mobile toolbar resizes vh. */
+  .tool {
+    left: 50%;
+    top: 50%;
+    opacity: calc(var(--e1) * (1 - var(--leave)));
+    translate:
+      calc(var(--bx, 0px) + (var(--qx, 0px) - var(--bx, 0px)) * var(--e2))
+      calc(
+        var(--by, 0px) + (1 - var(--e1)) * 18px +
+          (var(--qy, 0px) - var(--by, 0px)) * var(--e2) - var(--leave) * 6vh
+      );
+  }
+  .tool-card,
+  .tool-float {
+    animation: none;
   }
 }
 /* Hero */
