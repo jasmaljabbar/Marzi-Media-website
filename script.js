@@ -218,10 +218,13 @@
   };
   // All scrubbed scenes share geometry, visibility tracking, and the existing frame scheduler.
   // Progress always derives from scroll position: no timers, inertia, or scroll interception.
+  // "exit" runs while an element scrolls out below the header; "center" reaches 0.5 when an
+  // element's centre meets the viewport's; "pin" runs while a tall track holds its sticky stage;
+  // other scenes run between their enter and leave lines.
   const createScrollScenes = () => {
     const sceneConfig = [
+      { selector: ".opening", mode: "pin" },
       { selector: ".hero", mode: "exit" },
-      { selector: ".project", enter: 0.95, leave: 0.35 },
       { selector: ".services", enter: 0.8, leave: 0.25 },
       { selector: ".about-lead", enter: 0.85, leave: 0.25 },
       { selector: ".reasons", enter: 0.95, leave: 0.35 },
@@ -278,17 +281,25 @@
       const measurements = scenes.map((scene) => {
         const bounds = scene.element.getBoundingClientRect();
         const top = bounds.top + y;
-        return scene.mode === "exit"
-          ? {
-              scene,
-              start: Math.max(0, top - header.offsetHeight),
-              distance: bounds.height,
-            }
-          : {
-              scene,
-              start: top - height * scene.enter,
-              distance: bounds.height + height * (scene.enter - scene.leave),
-            };
+        if (scene.mode === "exit")
+          return {
+            scene,
+            start: Math.max(0, top - header.offsetHeight),
+            distance: bounds.height,
+          };
+        if (scene.mode === "pin")
+          return { scene, start: top, distance: bounds.height - height };
+        if (scene.mode === "center")
+          return {
+            scene,
+            start: top + bounds.height / 2 - height,
+            distance: height,
+          };
+        return {
+          scene,
+          start: top - height * scene.enter,
+          distance: bounds.height + height * (scene.enter - scene.leave),
+        };
       });
       measurements.forEach(({ scene, start, distance }) => {
         scene.start = start;
@@ -369,8 +380,13 @@
   };
   window.addEventListener("scroll", scheduleViewport, { passive: true });
   window.addEventListener("resize", measureSections, { passive: true });
-  if ("ResizeObserver" in window)
-    new ResizeObserver(measureSections).observe(document.querySelector("main"));
+  // The opening sits outside main, and its track grows when scroll scenes switch on.
+  if ("ResizeObserver" in window) {
+    const resizeObserver = new ResizeObserver(measureSections);
+    document
+      .querySelectorAll("main, .opening")
+      .forEach((element) => resizeObserver.observe(element));
+  }
   document
     .querySelectorAll("details")
     .forEach((detail) => detail.addEventListener("toggle", measureSections));
@@ -527,6 +543,226 @@
       observer.observe(crew);
       rows.forEach((row) => observer.observe(row.querySelector(".crew-group")));
     } else window.addEventListener("resize", layoutCrew);
+  }
+
+  // Opening: the load entrance is CSS and the scroll split is the "pin" scene above. Here the
+  // hero headline is held until the hero arrives, and on desktop one pointer loop eases the mark's
+  // tilt toward the pointer, running only while the opening is on screen.
+  const opening = document.querySelector(".opening");
+  const hero = document.querySelector(".hero");
+  if (opening && hero) {
+    if ("IntersectionObserver" in window) {
+      const heroObserver = new IntersectionObserver(
+        (entries) => {
+          const arrived = entries.some(
+            ({ isIntersecting, boundingClientRect }) =>
+              isIntersecting || boundingClientRect.bottom < 0,
+          );
+          if (!arrived) return;
+          hero.classList.add("hero-entered");
+          heroObserver.disconnect();
+        },
+        { rootMargin: "0px 0px -15% 0px" },
+      );
+      heroObserver.observe(hero);
+    } else hero.classList.add("hero-entered");
+
+    const stage = opening.querySelector(".opening-stage");
+    const tiltQuery = window.matchMedia(
+      "(hover: hover) and (pointer: fine) and (min-width: 761px)",
+    );
+    const tilt = { x: 0, y: 0, targetX: 0, targetY: 0, value: "" };
+    let tiltOn = false;
+    let openingInView = true;
+    let tiltFrame = 0;
+    let tiltTime = 0;
+    const stepTilt = (time) => {
+      const elapsed = tiltTime ? Math.min(64, time - tiltTime) : 16.7;
+      tiltTime = time;
+      const settle = 1 - 0.93 ** (elapsed / 16.7);
+      const approach = (from, to) => {
+        const next = from + (to - from) * settle;
+        return Math.abs(to - next) < 0.001 ? to : next;
+      };
+      tilt.x = approach(tilt.x, tilt.targetX);
+      tilt.y = approach(tilt.y, tilt.targetY);
+      const value = `${tilt.x.toFixed(3)} ${tilt.y.toFixed(3)}`;
+      if (value === tilt.value) {
+        tiltFrame = 0;
+        tiltTime = 0;
+        return;
+      }
+      tilt.value = value;
+      stage.style.setProperty("--tilt-x", tilt.x.toFixed(3));
+      stage.style.setProperty("--tilt-y", tilt.y.toFixed(3));
+      tiltFrame = window.requestAnimationFrame(stepTilt);
+    };
+    const startTilt = () => {
+      if (!tiltFrame) tiltFrame = window.requestAnimationFrame(stepTilt);
+    };
+    window.addEventListener(
+      "pointermove",
+      (event) => {
+        if (!tiltOn || !openingInView || event.pointerType !== "mouse") return;
+        tilt.targetX = clamp(event.clientX / window.innerWidth) * 2 - 1;
+        tilt.targetY = clamp(event.clientY / window.innerHeight) * 2 - 1;
+        startTilt();
+      },
+      { passive: true },
+    );
+    document.documentElement.addEventListener("pointerleave", () => {
+      tilt.targetX = 0;
+      tilt.targetY = 0;
+      if (tiltOn) startTilt();
+    });
+    if ("IntersectionObserver" in window)
+      new IntersectionObserver(([entry]) => {
+        openingInView = entry.isIntersecting;
+      }).observe(opening);
+    const configureTilt = () => {
+      tiltOn = tiltQuery.matches && !reduceMotion.matches;
+      if (tiltOn) return;
+      window.cancelAnimationFrame(tiltFrame);
+      tiltFrame = 0;
+      tiltTime = 0;
+      Object.assign(tilt, { x: 0, y: 0, targetX: 0, targetY: 0, value: "" });
+      stage.style.removeProperty("--tilt-x");
+      stage.style.removeProperty("--tilt-y");
+    };
+    configureTilt();
+    reduceMotion.addEventListener("change", configureTilt);
+    tiltQuery.addEventListener("change", configureTilt);
+  }
+
+  // Selected work: one-time heading, image and panel entrances, card-wide hover, and a subtle
+  // pointer parallax. Images open with a masked slide from the left (CSS); on tall desktop screens
+  // the cards stick and stack (CSS). Without JavaScript or with reduced motion, every part stays
+  // visible and static.
+  const work = document.querySelector(".work-section");
+  if (work) {
+    const cards = [...work.querySelectorAll(".project")].map((card) => ({
+      button: card.querySelector(".project-image"),
+      meta: card.querySelector(".project-meta"),
+      cursor: { x: 0, y: 0, targetX: 0, targetY: 0, value: "" },
+    }));
+    const targets = [work.querySelector(".section-heading")];
+    cards.forEach(({ button, meta }) => {
+      // Two stacked copies let the title roll on hover; the second is hidden from assistive technology.
+      const title = meta.querySelector("h3");
+      const copy = document.createElement("span");
+      copy.className = "title-copy";
+      copy.textContent = title.textContent.trim();
+      const echo = copy.cloneNode(true);
+      echo.setAttribute("aria-hidden", "true");
+      const roll = document.createElement("span");
+      roll.className = "title-roll";
+      roll.append(copy, echo);
+      title.replaceChildren(roll);
+      // The caption opens the same preview; the image button remains the one keyboard control.
+      meta.addEventListener("click", () => button.click());
+      targets.push(button, meta);
+    });
+
+    let workObserver = null;
+    const revealWork = (element, delay = 0) => {
+      workObserver?.unobserve(element);
+      element.style.setProperty("--work-stagger", `${delay}ms`);
+      element.classList.add("is-revealed");
+    };
+    const configureWork = () => {
+      workObserver?.disconnect();
+      workObserver = null;
+      if (reduceMotion.matches || !("IntersectionObserver" in window)) {
+        work.classList.remove("work-motion");
+        targets.forEach((element) => revealWork(element));
+        return;
+      }
+      workObserver = new IntersectionObserver(
+        (entries) => {
+          let order = 0;
+          entries.forEach(({ target, isIntersecting, boundingClientRect }) => {
+            // Items arriving together open in document order (left tile, then right); items
+            // already scrolled past appear at once.
+            if (isIntersecting) revealWork(target, Math.min(order++ * 160, 320));
+            else if (boundingClientRect.bottom < 0) revealWork(target);
+          });
+        },
+        { rootMargin: "0px 0px -10% 0px" },
+      );
+      targets
+        .filter((element) => !element.classList.contains("is-revealed"))
+        .forEach((element) => workObserver.observe(element));
+      work.classList.add("work-motion");
+    };
+    work.addEventListener("focusin", (event) => {
+      const card = cards.find(({ button }) => button === event.target);
+      if (card) [card.button, card.meta].forEach((element) => revealWork(element));
+    });
+
+    // One pointer loop eases each image's parallax offset and stops once every image settles.
+    const pointerQuery = window.matchMedia("(hover: hover) and (pointer: fine)");
+    let pointerOn = false;
+    let pointerFrame = 0;
+    let pointerTime = 0;
+    const approach = (from, to, rate) => {
+      const next = from + (to - from) * rate;
+      return Math.abs(to - next) < 0.001 ? to : next;
+    };
+    const stepPointer = (time) => {
+      const elapsed = pointerTime ? Math.min(64, time - pointerTime) : 16.7;
+      pointerTime = time;
+      const settle = 1 - 0.9 ** (elapsed / 16.7);
+      let moving = false;
+      cards.forEach(({ button, cursor }) => {
+        cursor.x = approach(cursor.x, cursor.targetX, settle);
+        cursor.y = approach(cursor.y, cursor.targetY, settle);
+        const value = `${cursor.x.toFixed(3)} ${cursor.y.toFixed(3)}`;
+        if (value === cursor.value) return;
+        cursor.value = value;
+        button.style.setProperty("--cursor-x", cursor.x.toFixed(3));
+        button.style.setProperty("--cursor-y", cursor.y.toFixed(3));
+        moving = true;
+      });
+      pointerFrame = moving ? window.requestAnimationFrame(stepPointer) : 0;
+      if (!pointerFrame) pointerTime = 0;
+    };
+    const startPointer = () => {
+      if (!pointerFrame) pointerFrame = window.requestAnimationFrame(stepPointer);
+    };
+    cards.forEach(({ button, cursor }) => {
+      button.addEventListener("pointermove", (event) => {
+        if (!pointerOn || event.pointerType !== "mouse") return;
+        const bounds = button.getBoundingClientRect();
+        cursor.targetX = clamp((event.clientX - bounds.left) / bounds.width) * 2 - 1;
+        cursor.targetY = clamp((event.clientY - bounds.top) / bounds.height) * 2 - 1;
+        startPointer();
+      });
+      button.addEventListener("pointerleave", () => {
+        cursor.targetX = 0;
+        cursor.targetY = 0;
+        if (pointerOn) startPointer();
+      });
+    });
+    const configurePointer = () => {
+      pointerOn = pointerQuery.matches && !reduceMotion.matches;
+      if (pointerOn) return;
+      window.cancelAnimationFrame(pointerFrame);
+      pointerFrame = 0;
+      pointerTime = 0;
+      cards.forEach(({ button, cursor }) => {
+        Object.assign(cursor, { x: 0, y: 0, targetX: 0, targetY: 0, value: "" });
+        button.style.removeProperty("--cursor-x");
+        button.style.removeProperty("--cursor-y");
+      });
+    };
+
+    const configureAll = () => {
+      configureWork();
+      configurePointer();
+    };
+    configureAll();
+    reduceMotion.addEventListener("change", configureAll);
+    pointerQuery.addEventListener("change", configurePointer);
   }
 
   // Reveal once, with short, bounded sibling delays. Unsupported browsers keep visible content.

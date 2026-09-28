@@ -174,6 +174,63 @@
       </ol>
     </nav>
 
+    <!-- Opening: the brand mark stands in space, then splits apart on scroll to reveal what the
+         studio makes. Decorative only; the hero below carries the same message for everyone. -->
+    <div class="opening" aria-hidden="true">
+      <div class="opening-stage">
+        <p class="opening-words">
+          <span class="opening-kicker">A creative studio for</span>
+          <span class="opening-line" style="--line: 0"
+            ><span><i class="is-yellow"></i>Branding.</span></span
+          >
+          <span class="opening-line" style="--line: 1"
+            ><span><i class="is-red"></i>Websites.</span></span
+          >
+          <span class="opening-line" style="--line: 2"
+            ><span><i class="is-orange"></i>Campaigns.</span></span
+          >
+        </p>
+        <div class="opening-sway">
+          <div class="opening-scene">
+            <div class="opening-plane">
+              <span class="opening-guide is-cap"></span>
+              <span class="opening-guide is-base"></span>
+            </div>
+            <div class="opening-floor"></div>
+            <div class="opening-piece is-yellow">
+              <div class="opening-float">
+                <div class="opening-bar"><i class="face is-front"></i><i class="face is-right"></i><i class="face is-left"></i><i class="face is-top"></i><i class="face is-bottom"></i></div>
+              </div>
+            </div>
+            <div class="opening-piece is-red">
+              <div class="opening-float">
+                <div class="opening-bar"><i class="face is-front"></i><i class="face is-right"></i><i class="face is-left"></i><i class="face is-top"></i><i class="face is-bottom"></i></div>
+              </div>
+            </div>
+            <div class="opening-piece is-orange">
+              <div class="opening-float">
+                <div class="opening-bar"><i class="face is-front"></i><i class="face is-right"></i><i class="face is-left"></i><i class="face is-top"></i><i class="face is-bottom"></i></div>
+              </div>
+            </div>
+            <div class="opening-piece is-dot">
+              <div class="opening-float">
+                <svg class="opening-orbit" viewBox="0 0 100 100">
+                  <path class="orbit-cross" d="M0 50h100M50 0v100" />
+                  <circle cx="50" cy="50" r="48" />
+                </svg>
+                <span class="opening-dot"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="opening-meta container">
+          <span><span class="opening-star">✳</span> Creative × digital studio</span>
+          <span class="opening-cue"><span class="opening-cue-line"></span>Scroll</span>
+          <span>Ambalavayal · Wayanad</span>
+        </div>
+      </div>
+    </div>
+
     <main id="main">
       <!-- A custom composition of real website, identity and social work from the supplied portfolio. -->
       <section class="hero container" id="home" aria-labelledby="hero-title">
@@ -206,7 +263,7 @@
             <p>One partner.<br /><strong>Every business solution.</strong></p>
           </div>
         </div>
-        <div class="hero-art">
+        <div class="hero-art" data-reveal="up">
           <div class="art-topline">
             <span>CREATIVE × DIGITAL</span><span>SELECTED CAPABILITIES</span>
           </div>
@@ -300,11 +357,19 @@
         id="work"
         aria-labelledby="work-title"
       >
-        <div class="section-heading" data-reveal="up">
+        <!-- Masked lines rise in sequence as the section enters; they are plain text without JavaScript. -->
+        <div class="section-heading">
           <div>
-            <p class="eyebrow">01 / SELECTED WORK</p>
+            <p class="eyebrow work-eyebrow">
+              <span class="mask-line"><span>01</span></span>
+              <span class="mask-line"><span>/</span></span>
+              <span class="mask-line"><span>SELECTED WORK</span></span>
+            </p>
             <h2 id="work-title">
-              Different brands.<br />Same <span class="serif">obsession.</span>
+              <span class="mask-line"><span>Different brands.</span></span
+              ><br /><span class="mask-line"
+                ><span>Same <span class="serif">obsession.</span></span></span
+              >
             </h2>
           </div>
           <p>
@@ -312,8 +377,12 @@
             helped bring to life.
           </p>
         </div>
-        <div class="work-grid" data-stagger>
-          <article class="project" id="project-saleena">
+        <div class="work-grid">
+          <article
+            class="project"
+            id="project-saleena"
+            style="--i: 0; --card-bg: #1f4a2e; --card-ink: #f7f7f2; --card-soft: #c9d3c3; --card-accent: #d8e67a; --image-focus: 0%"
+          >
             <button
               class="project-image"
               type="button"
@@ -326,14 +395,43 @@
                 width="1280"
                 height="720"
                 loading="lazy"
-              /><span class="project-open" aria-hidden="true">↗</span>
+              />
             </button>
             <div class="project-meta">
+              <p class="project-kicker">
+                <span>01</span>Packaging design
+              </p>
               <h3>Saleena Pickles</h3>
-              <span>PACKAGING DESIGN</span>
+              <ul class="project-tags" aria-label="Services">
+                <li>Packaging</li>
+                <li>Label design</li>
+                <li>Art direction</li>
+              </ul>
+              <p class="project-summary">
+                A packaging identity brought to life through green labels, ingredient-led imagery and a warm product presentation.
+              </p>
+              <span class="project-badge" aria-hidden="true">
+                <svg viewBox="0 0 120 120">
+                  <path
+                    id="badge-path-saleena"
+                    d="M60 60m-43 0a43 43 0 1 1 86 0a43 43 0 1 1-86 0"
+                    fill="none"
+                  />
+                  <text>
+                    <textPath href="#badge-path-saleena" textLength="258">
+                      VIEW PROJECT • VIEW PROJECT •
+                    </textPath>
+                  </text>
+                </svg>
+                <span class="project-badge-arrow">↗</span>
+              </span>
             </div>
           </article>
-          <article class="project project-offset">
+          <article
+            class="project"
+            id="project-eyouth"
+            style="--i: 1; --card-bg: #8cc63f; --card-ink: #16230b; --card-soft: #2c4214; --card-accent: #0b3d1d; --image-focus: 0%"
+          >
             <button
               class="project-image"
               type="button"
@@ -346,14 +444,44 @@
                 width="1280"
                 height="694"
                 loading="lazy"
-              /><span class="project-open" aria-hidden="true">↗</span>
+              />
             </button>
             <div class="project-meta">
+              <p class="project-kicker">
+                <span>02</span>Brand identity
+              </p>
               <h3>e.youth Mathrubhumi</h3>
-              <span>BRAND IDENTITY</span>
+              <ul class="project-tags" aria-label="Services">
+                <li>Logo design</li>
+                <li>Brand identity</li>
+                <li>Social media</li>
+                <li>Merchandise</li>
+              </ul>
+              <p class="project-summary">
+                A cohesive green visual identity, explored across social media, stationery and merchandise.
+              </p>
+              <span class="project-badge" aria-hidden="true">
+                <svg viewBox="0 0 120 120">
+                  <path
+                    id="badge-path-eyouth"
+                    d="M60 60m-43 0a43 43 0 1 1 86 0a43 43 0 1 1-86 0"
+                    fill="none"
+                  />
+                  <text>
+                    <textPath href="#badge-path-eyouth" textLength="258">
+                      VIEW PROJECT • VIEW PROJECT •
+                    </textPath>
+                  </text>
+                </svg>
+                <span class="project-badge-arrow">↗</span>
+              </span>
             </div>
           </article>
-          <article class="project">
+          <article
+            class="project"
+            id="project-urban"
+            style="--i: 2; --card-bg: #211a2b; --card-ink: #f7f7f2; --card-soft: #c7bdd6; --card-accent: #b99be6; --image-focus: 0%"
+          >
             <button
               class="project-image"
               type="button"
@@ -366,14 +494,43 @@
                 width="1280"
                 height="720"
                 loading="lazy"
-              /><span class="project-open" aria-hidden="true">↗</span>
+              />
             </button>
             <div class="project-meta">
+              <p class="project-kicker">
+                <span>03</span>Packaging design
+              </p>
               <h3>Urban Culture</h3>
-              <span>PACKAGING DESIGN</span>
+              <ul class="project-tags" aria-label="Services">
+                <li>Packaging</li>
+                <li>Art direction</li>
+                <li>Campaign visuals</li>
+              </ul>
+              <p class="project-summary">
+                A dark, expressive packaging direction with purple accents and fashion-led imagery.
+              </p>
+              <span class="project-badge" aria-hidden="true">
+                <svg viewBox="0 0 120 120">
+                  <path
+                    id="badge-path-urban"
+                    d="M60 60m-43 0a43 43 0 1 1 86 0a43 43 0 1 1-86 0"
+                    fill="none"
+                  />
+                  <text>
+                    <textPath href="#badge-path-urban" textLength="258">
+                      VIEW PROJECT • VIEW PROJECT •
+                    </textPath>
+                  </text>
+                </svg>
+                <span class="project-badge-arrow">↗</span>
+              </span>
             </div>
           </article>
-          <article class="project project-offset">
+          <article
+            class="project"
+            id="project-english"
+            style="--i: 3; --card-bg: #2f2bb5; --card-ink: #f7f7f2; --card-soft: #cfd0f2; --card-accent: #f47a20"
+          >
             <button
               class="project-image"
               type="button"
@@ -386,11 +543,37 @@
                 width="1280"
                 height="694"
                 loading="lazy"
-              /><span class="project-open" aria-hidden="true">↗</span>
+              />
             </button>
             <div class="project-meta">
+              <p class="project-kicker">
+                <span>04</span>Brand identity
+              </p>
               <h3>English Debate Club</h3>
-              <span>BRAND IDENTITY</span>
+              <ul class="project-tags" aria-label="Services">
+                <li>Logo design</li>
+                <li>Brand identity</li>
+                <li>Web design</li>
+                <li>Signage &amp; print</li>
+              </ul>
+              <p class="project-summary">
+                A distinctive blue identity carried through digital touchpoints, signage and printed materials.
+              </p>
+              <span class="project-badge" aria-hidden="true">
+                <svg viewBox="0 0 120 120">
+                  <path
+                    id="badge-path-english"
+                    d="M60 60m-43 0a43 43 0 1 1 86 0a43 43 0 1 1-86 0"
+                    fill="none"
+                  />
+                  <text>
+                    <textPath href="#badge-path-english" textLength="258">
+                      VIEW PROJECT • VIEW PROJECT •
+                    </textPath>
+                  </text>
+                </svg>
+                <span class="project-badge-arrow">↗</span>
+              </span>
             </div>
           </article>
         </div>
@@ -583,8 +766,8 @@
                     decoding="async"
                     src="assets/crew-web/muhammed-jabir-ali.webp"
                     alt=""
-                    width="608"
-                    height="760"
+                    width="640"
+                    height="640"
                   />
                   <figcaption>
                     <strong>Muhammed Jabir Ali</strong
@@ -597,8 +780,8 @@
                     decoding="async"
                     src="assets/crew-web/muhammed-rahiyad-k.webp"
                     alt=""
-                    width="352"
-                    height="760"
+                    width="640"
+                    height="640"
                   />
                   <figcaption>
                     <strong>Muhammed Rahiyad K</strong
@@ -612,8 +795,8 @@
                     decoding="async"
                     src="assets/crew-web/ali-k.webp"
                     alt=""
-                    width="570"
-                    height="760"
+                    width="640"
+                    height="640"
                   />
                   <figcaption>
                     <strong>Ali K</strong><span>General Manager</span>
@@ -626,7 +809,7 @@
                     src="assets/crew-web/mirshad.webp"
                     alt=""
                     width="640"
-                    height="718"
+                    height="640"
                   />
                   <figcaption>
                     <strong>Mirshad</strong><span>Operation manager</span>
@@ -650,7 +833,7 @@
                     src="assets/crew-web/amina-marjana.webp"
                     alt=""
                     width="640"
-                    height="638"
+                    height="640"
                   />
                   <figcaption>
                     <strong>Amina Marjana</strong
@@ -664,8 +847,8 @@
                     decoding="async"
                     src="assets/crew-web/shafeena-k.webp"
                     alt=""
-                    width="570"
-                    height="760"
+                    width="640"
+                    height="640"
                   />
                   <figcaption>
                     <strong>Shafeena K</strong><span>HR manager</span>
@@ -678,7 +861,7 @@
                     src="assets/crew-web/badusha-ap.webp"
                     alt=""
                     width="640"
-                    height="507"
+                    height="640"
                   />
                   <figcaption>
                     <strong>Badusha AP</strong><span>Marketing Manager</span>
@@ -690,8 +873,8 @@
                     decoding="async"
                     src="assets/crew-web/fayas-c.webp"
                     alt=""
-                    width="570"
-                    height="760"
+                    width="640"
+                    height="640"
                   />
                   <figcaption>
                     <strong>Fayas C</strong
@@ -729,8 +912,8 @@
                     decoding="async"
                     src="assets/crew-web/muhammed-sinan-k.webp"
                     alt=""
-                    width="491"
-                    height="592"
+                    width="640"
+                    height="640"
                   />
                   <figcaption>
                     <strong>Muhammed Sinan K</strong
@@ -744,8 +927,8 @@
                     decoding="async"
                     src="assets/crew-web/nida-nazrin.webp"
                     alt=""
-                    width="570"
-                    height="760"
+                    width="640"
+                    height="640"
                   />
                   <figcaption>
                     <strong>Nida Nazrin</strong><span>Graphic Designer</span>
@@ -755,10 +938,23 @@
                   <img
                     loading="lazy"
                     decoding="async"
+                    src="assets/crew-web/muhammed-umair.webp"
+                    alt=""
+                    width="640"
+                    height="640"
+                  />
+                  <figcaption>
+                    <strong>Muhammed Umair</strong><span>Graphic Designer</span>
+                  </figcaption>
+                </figure>
+                <figure class="crew-card" role="listitem">
+                  <img
+                    loading="lazy"
+                    decoding="async"
                     src="assets/crew-web/jasmal-jabbar.webp"
                     alt=""
-                    width="594"
-                    height="760"
+                    width="500"
+                    height="640"
                   />
                   <figcaption>
                     <strong>Jasmal Jabbar</strong><span>Software Engineer</span>

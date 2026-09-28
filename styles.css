@@ -18,6 +18,7 @@
   --font: "Manrope", Arial, sans-serif;
   --serif: Georgia, "Times New Roman", serif;
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.18, 1);
   --motion-duration: 650ms;
   --header-height: 88px;
   --radius: 10px;
@@ -198,8 +199,7 @@ h3 {
 .nav-cta:hover span {
   transform: translate(2px, -2px);
 }
-.circle-arrow,
-.project-open {
+.circle-arrow {
   transition:
     background 220ms ease,
     color 220ms ease,
@@ -903,6 +903,568 @@ h3 {
     grid-template-columns: 6rem minmax(0, 1fr) auto;
   }
 }
+/* Opening. The brand mark is rebuilt as three slabs and a dot standing in a construction grid.
+   On load, the grid and guides draw in, the slabs grow in turn and the dot drops into place; the
+   base styles are the settled state, so reduced motion and print show the finished mark. With
+   scroll scenes on, the opening becomes a pinned track: its "pin" scene progress (0 to 1) splits
+   the slabs toward the sides and uncovers the studio's disciplines behind them. Script.js eases
+   the pointer tilt (--tilt-x, --tilt-y from −1 to 1) on desktop. Mobile keeps flat slabs. */
+.opening {
+  --u: min(0.9vw, 1vh);
+  --p: var(--scene-progress, 0);
+  --s: clamp(0, (var(--p) - 0.04) / 0.84, 1);
+  --split: calc(var(--s) * var(--s) * (3 - 2 * var(--s)));
+  --intro-out: clamp(0, var(--p) / 0.12, 1);
+  position: relative;
+  height: 100vh;
+  height: 100svh;
+  margin-top: calc(var(--header-height) * -1);
+}
+/* The hero overlaps the end of the track, so it rises in while the disciplines are still held. */
+.scroll-motion .opening {
+  height: 230vh;
+  height: 230svh;
+  margin-bottom: -24vh;
+}
+.opening-stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  overflow: clip;
+  perspective: 1400px;
+}
+.opening-sway,
+.opening-scene,
+.opening-piece,
+.opening-float,
+.opening-bar {
+  transform-style: preserve-3d;
+}
+.opening-sway {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+.opening-scene {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: calc(var(--u) * 46);
+  height: calc(var(--u) * 46);
+  margin: calc(var(--u) * -23) 0 0 calc(var(--u) * -23);
+  --scene-rx: calc(-14deg + var(--tilt-y, 0) * 7deg - var(--split) * 10deg);
+  --scene-ry: calc(-24deg + var(--tilt-x, 0) * 12deg + var(--split) * 14deg);
+  transform: translateZ(calc(var(--split) * -80px)) rotateX(var(--scene-rx))
+    rotateY(var(--scene-ry));
+}
+/* Construction grid, pitched on the mark's own 11-unit rhythm so its lines meet the slab edges. */
+.opening-plane {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: calc(var(--u) * 154);
+  height: calc(var(--u) * 110);
+  margin: calc(var(--u) * -55) 0 0 calc(var(--u) * -77);
+  background-image:
+    linear-gradient(90deg, #20211f17 1px, transparent 1px),
+    linear-gradient(#20211f17 1px, transparent 1px);
+  background-size: calc(var(--u) * 11) calc(var(--u) * 11);
+  mask-image: radial-gradient(closest-side, #000 35%, transparent);
+  transform: translateZ(calc(var(--u) * -6));
+  opacity: calc(1 - var(--split) * 2.2);
+}
+.opening-guide {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: #20211f4d;
+}
+.opening-guide.is-cap {
+  top: calc(var(--u) * 34);
+  transform-origin: right;
+}
+.opening-guide.is-base {
+  top: calc(var(--u) * 77);
+  transform-origin: left;
+}
+.opening-floor {
+  position: absolute;
+  left: calc(var(--u) * -12.5);
+  top: calc(var(--u) * 30);
+  width: calc(var(--u) * 70);
+  height: calc(var(--u) * 30);
+  transform: rotateX(90deg);
+  opacity: calc(1 - var(--split) * 2.5);
+}
+.opening-floor::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(closest-side, #20211f38, transparent);
+}
+/* Each piece sits where the logo draws it (46-unit box) and travels to its own exit on scroll. */
+.opening-piece {
+  position: absolute;
+  left: calc(var(--u) * var(--x));
+  top: calc(var(--u) * (45 - var(--h)));
+  width: calc(var(--u) * 7);
+  height: calc(var(--u) * var(--h));
+  transform: translate3d(
+      calc(var(--split) * var(--to-x)),
+      calc(var(--split) * var(--to-y)),
+      calc(var(--u) * var(--z) + var(--split) * var(--to-z))
+    )
+    rotateZ(calc(var(--split) * var(--turn-z)))
+    rotateY(calc(var(--split) * var(--turn-y)));
+}
+.opening-piece.is-yellow {
+  --x: 1;
+  --h: 26;
+  --z: 2;
+  --to-x: -58vw;
+  --to-y: 8vh;
+  --to-z: 160px;
+  --turn-z: -14deg;
+  --turn-y: -40deg;
+  --front: #f5d63e;
+  --light: #fbe98a;
+  --side: #d8b823;
+  --shade: #c9a91b;
+}
+.opening-piece.is-red {
+  --x: 12;
+  --h: 43;
+  --z: -2;
+  --to-x: 40vw;
+  --to-y: -70vh;
+  --to-z: -120px;
+  --turn-z: 18deg;
+  --turn-y: 30deg;
+  --front: #ed4438;
+  --light: #f67b70;
+  --side: #c7342a;
+  --shade: #aa2a21;
+}
+.opening-piece.is-orange {
+  --x: 23;
+  --h: 34;
+  --z: 0;
+  --to-x: 64vw;
+  --to-y: 16vh;
+  --to-z: 220px;
+  --turn-z: 10deg;
+  --turn-y: 50deg;
+  --front: #f47a20;
+  --light: #f99d5a;
+  --side: #cf610f;
+  --shade: #b3540c;
+}
+.opening-piece.is-dot {
+  --x: 36;
+  --h: 8;
+  --z: 4;
+  --to-x: -34vw;
+  --to-y: 72vh;
+  --to-z: 260px;
+  --turn-z: 0deg;
+  --turn-y: 0deg;
+  width: calc(var(--u) * 8);
+}
+.opening-float {
+  position: absolute;
+  inset: 0;
+}
+.opening-bar {
+  position: absolute;
+  inset: 0;
+  transform-origin: 50% 100%;
+}
+/* A cuboid: every face is centred on the slab, turned outward and pushed to its surface. */
+.opening-bar .face {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: calc(var(--u) * 7);
+  height: calc(var(--u) * var(--h));
+  backface-visibility: hidden;
+}
+.face.is-front {
+  background: linear-gradient(var(--light), var(--front) 34%);
+  transform: translate(-50%, -50%) translateZ(calc(var(--u) * 3.5));
+}
+.face.is-right {
+  background: var(--side);
+  transform: translate(-50%, -50%) rotateY(90deg)
+    translateZ(calc(var(--u) * 3.5));
+}
+.face.is-left {
+  background: var(--shade);
+  transform: translate(-50%, -50%) rotateY(-90deg)
+    translateZ(calc(var(--u) * 3.5));
+}
+.face.is-top,
+.face.is-bottom {
+  height: calc(var(--u) * 7);
+}
+.face.is-top {
+  background: var(--light);
+  transform: translate(-50%, -50%) rotateX(90deg)
+    translateZ(calc(var(--u) * var(--h) / 2));
+}
+.face.is-bottom {
+  background: var(--shade);
+  transform: translate(-50%, -50%) rotateX(-90deg)
+    translateZ(calc(var(--u) * var(--h) / 2));
+}
+.opening-dot {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 34% 30%,
+    #6b6d65,
+    var(--ink) 55%,
+    #0c0d0b
+  );
+  box-shadow: 0 calc(var(--u) * 1.4) calc(var(--u) * 2.2) -0.6em #20211f66;
+  /* The dot always faces the viewer, so it reads as a sphere at any angle. */
+  transform: rotateY(calc(var(--scene-ry) * -1))
+    rotateX(calc(var(--scene-rx) * -1));
+}
+.opening-orbit {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: calc(var(--u) * 15);
+  height: calc(var(--u) * 15);
+  margin: calc(var(--u) * -7.5) 0 0 calc(var(--u) * -7.5);
+  overflow: visible;
+  fill: none;
+  stroke: #20211f59;
+  stroke-width: 1;
+  opacity: calc(1 - var(--split) * 3);
+}
+.orbit-cross {
+  vector-effect: non-scaling-stroke;
+  stroke-dasharray: 2 4;
+}
+.opening-orbit circle {
+  stroke-width: 0.8;
+  stroke-dasharray: 302;
+}
+/* The disciplines wait behind the mark and rise line by line as the slabs part. */
+.opening-words {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: grid;
+  place-content: center;
+  justify-items: start;
+  font-size: clamp(2.6rem, 5.6vw, 5.4rem);
+  font-weight: 600;
+  line-height: 1.02;
+  letter-spacing: -0.055em;
+  visibility: hidden;
+}
+.scroll-motion .opening-words {
+  visibility: visible;
+}
+.opening-kicker {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.9rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  line-height: 1.7;
+  text-transform: uppercase;
+  color: var(--muted);
+  opacity: clamp(0, (var(--p) - 0.26) / 0.18, 1);
+  translate: 0 calc((1 - clamp(0, (var(--p) - 0.26) / 0.18, 1)) * 12px);
+}
+.opening-kicker::after {
+  content: "";
+  width: 36px;
+  height: 2px;
+  margin-left: 14px;
+  background: var(--orange);
+}
+.opening-line {
+  --w: clamp(0, (var(--p) - 0.3 - var(--line) * 0.07) / 0.28, 1);
+  display: block;
+  overflow: hidden;
+  overflow: clip;
+  padding-block: 0.08em;
+  margin-block: -0.08em;
+}
+.opening-line > span {
+  display: flex;
+  align-items: center;
+  translate: 0 calc((1 - var(--w)) * (1 - var(--w)) * (1 - var(--w)) * 110%);
+}
+.opening-line i {
+  width: 0.3em;
+  height: 0.3em;
+  margin-right: 0.3em;
+  border-radius: 0.05em;
+  flex-shrink: 0;
+}
+.opening-line i.is-yellow {
+  background: #f5d63e;
+}
+.opening-line i.is-red {
+  background: #ed4438;
+}
+.opening-line i.is-orange {
+  background: var(--orange);
+}
+.opening-meta {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 28px;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: end;
+  gap: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--muted);
+  opacity: calc(1 - var(--intro-out));
+}
+.opening-meta > :last-child {
+  justify-self: end;
+}
+.opening-star {
+  color: var(--orange-ink);
+}
+.opening-cue {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  color: var(--ink);
+}
+.opening-cue-line {
+  position: relative;
+  width: 1px;
+  height: 44px;
+  overflow: hidden;
+  background: var(--line);
+}
+.opening-cue-line::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1px;
+  height: 40%;
+  background: var(--ink);
+  translate: 0 -100%;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .opening-plane {
+    animation: opening-fade 1200ms ease 100ms backwards;
+  }
+  .opening-guide {
+    animation: opening-draw 1000ms var(--ease-in-out) 200ms both;
+  }
+  .opening-guide.is-cap {
+    animation-delay: 380ms;
+  }
+  .opening-floor::before {
+    animation: opening-draw 1100ms var(--ease-out) 550ms both;
+  }
+  .opening-bar {
+    animation: opening-grow 1000ms cubic-bezier(0.22, 1.16, 0.36, 1) 550ms
+      both;
+  }
+  .is-red .opening-bar {
+    animation-delay: 700ms;
+  }
+  .is-orange .opening-bar {
+    animation-delay: 850ms;
+  }
+  .opening-dot {
+    animation: opening-drop 950ms var(--ease-out) 1500ms both;
+  }
+  .opening-orbit circle {
+    animation: opening-orbit 1100ms var(--ease-in-out) 2000ms both;
+  }
+  .orbit-cross {
+    animation: opening-fade 900ms ease 2200ms both;
+  }
+  .opening-meta > * {
+    animation: opening-rise 800ms var(--ease-out) 2400ms both;
+  }
+  .opening-meta > :nth-child(2) {
+    animation-delay: 2550ms;
+  }
+  .opening-meta > :nth-child(3) {
+    animation-delay: 2700ms;
+  }
+  /* Settled, the mark breathes: each piece drifts on its own period and the scene sways a little. */
+  .opening-float {
+    animation: opening-float 6s ease-in-out 2600ms infinite alternate;
+  }
+  .is-red .opening-float {
+    animation-duration: 7.4s;
+    animation-delay: 3000ms;
+  }
+  .is-orange .opening-float {
+    animation-duration: 6.6s;
+    animation-delay: 2800ms;
+  }
+  .is-dot .opening-float {
+    animation-duration: 5.2s;
+    animation-delay: 3200ms;
+  }
+  .opening-sway {
+    animation: opening-sway 14s ease-in-out 2600ms infinite alternate;
+  }
+  .opening-cue-line::after {
+    animation: opening-cue 2200ms var(--ease-in-out) 3200ms infinite;
+  }
+}
+@keyframes opening-fade {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes opening-draw {
+  from {
+    transform: scaleX(0);
+  }
+}
+@keyframes opening-grow {
+  from {
+    transform: scaleY(0.001);
+  }
+}
+@keyframes opening-drop {
+  0% {
+    translate: 0 calc(var(--u) * -34);
+    opacity: 0;
+  }
+  55% {
+    translate: 0 calc(var(--u) * 0.7);
+    opacity: 1;
+  }
+  78% {
+    translate: 0 calc(var(--u) * -0.9);
+  }
+  100% {
+    translate: 0 0;
+  }
+}
+@keyframes opening-orbit {
+  from {
+    stroke-dashoffset: 302;
+  }
+}
+@keyframes opening-rise {
+  from {
+    opacity: 0;
+    translate: 0 10px;
+  }
+}
+@keyframes opening-float {
+  to {
+    translate: 0 calc(var(--u) * -0.9);
+  }
+}
+@keyframes opening-sway {
+  from {
+    rotate: y -4deg;
+  }
+  to {
+    rotate: y 4deg;
+  }
+}
+@keyframes opening-cue {
+  to {
+    translate: 0 260%;
+  }
+}
+/* The hero headline waits for the hero to arrive, so it still rises after the opening. */
+.js .hero:not(.hero-entered) .headline-line > span {
+  animation-play-state: paused;
+}
+/* Below 1101px the menu button is fixed in the bottom-right corner, where the place name sat. */
+@media (max-width: 1100px) {
+  .opening {
+    --u: min(1.15vw, 0.95vh);
+  }
+  .opening-meta > :last-child {
+    visibility: hidden;
+  }
+}
+/* Mobile keeps the idea with flat slabs: no depth, tilt or sway, and a shorter track. */
+@media (max-width: 760px) {
+  .opening {
+    --u: min(1.55vw, 0.8vh);
+  }
+  .scroll-motion .opening {
+    height: 190vh;
+    height: 190svh;
+  }
+  .opening-stage {
+    perspective: none;
+  }
+  .opening-scene {
+    transform: none;
+  }
+  .opening-plane {
+    transform: none;
+  }
+  .opening-floor,
+  .opening-bar .face:not(.is-front) {
+    display: none;
+  }
+  .opening-piece {
+    transform: translate(
+        calc(var(--split) * var(--to-x)),
+        calc(var(--split) * var(--to-y))
+      )
+      rotate(calc(var(--split) * var(--turn-z)));
+  }
+  .opening-piece.is-yellow {
+    --to-x: -80vw;
+  }
+  .opening-piece.is-red {
+    --to-x: 70vw;
+    --to-y: -60vh;
+  }
+  .opening-piece.is-orange {
+    --to-x: 90vw;
+  }
+  .opening-piece.is-dot {
+    --to-x: -70vw;
+    --to-y: 50vh;
+  }
+  .opening-bar .face.is-front {
+    transform: translate(-50%, -50%);
+  }
+  .opening-dot {
+    transform: none;
+  }
+  .opening-sway {
+    animation: none;
+  }
+  .opening-meta {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    bottom: 22px;
+  }
+  .opening-meta > :not(.opening-cue) {
+    display: none;
+  }
+}
 /* Hero */
 h1,
 h2,
@@ -1292,67 +1854,276 @@ h2 {
   font-size: 1.05rem;
   letter-spacing: 0.04em;
 }
-/* Selected work */
+/* Selected work. Entrances are one-time and class-based: transitions live on the revealed state,
+   so hiding content before its entrance never animates. Scroll-linked motion is under .scroll-motion. */
+.mask-line {
+  display: inline-block;
+  vertical-align: top;
+  overflow: hidden;
+  overflow: clip;
+  padding-block: 0.08em;
+  margin-block: -0.08em;
+}
+.mask-line > span {
+  display: block;
+}
+.work-eyebrow::after {
+  content: "";
+  display: inline-block;
+  width: 36px;
+  height: 2px;
+  margin-left: 14px;
+  vertical-align: middle;
+  background: var(--orange);
+  transform-origin: left;
+}
+.work-eyebrow .mask-line:nth-of-type(2) > span {
+  --reveal-step: 60ms;
+}
+.work-eyebrow .mask-line:nth-of-type(3) > span {
+  --reveal-step: 120ms;
+}
+#work-title .mask-line:nth-of-type(1) > span {
+  --reveal-step: 140ms;
+}
+#work-title .mask-line:nth-of-type(2) > span {
+  --reveal-step: 240ms;
+}
+.work-section .section-heading.is-revealed .mask-line > span {
+  transition: translate 1000ms var(--ease-out)
+    calc(var(--work-stagger, 0ms) + var(--reveal-step, 0ms));
+}
+.work-section .section-heading.is-revealed .work-eyebrow::after {
+  transition: transform 900ms var(--ease-out)
+    calc(var(--work-stagger, 0ms) + 260ms);
+}
+.work-section .section-heading.is-revealed > p {
+  transition:
+    opacity 900ms ease calc(var(--work-stagger, 0ms) + 380ms),
+    translate 1000ms var(--ease-out) calc(var(--work-stagger, 0ms) + 380ms);
+}
 .work-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 53px 32px;
+  gap: 40px;
 }
-.project-offset {
-  transform: translateY(66px);
+/* Each project is one full-width card: the image on the left and a panel in the project's own
+   colours on the right. The colours are custom properties set on each article. On tall desktop
+   screens the cards stick and stack as they scroll, each settling a little lower than the last. */
+.project {
+  --card-radius: 24px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  overflow: hidden;
+  overflow: clip;
+  border-radius: var(--card-radius);
+  background: var(--card-bg, var(--dark));
+  color: var(--card-ink, var(--paper));
 }
 .project-image {
   display: block;
+  position: relative;
+  isolation: isolate;
+  width: 100%;
   padding: 0;
   border: 0;
-  background: #e3e5dc;
-  width: 100%;
   overflow: hidden;
-  position: relative;
-  border-radius: var(--radius);
+  background: transparent;
 }
+.project-image:focus-visible {
+  outline-color: var(--paper);
+  outline-offset: -10px;
+}
+/* The image fills the card's height; its ratio sets the height when the panel is shorter. Each
+   card can move the crop with --image-focus to keep its key content in view. */
 .project-image img {
   width: 100%;
-  aspect-ratio: 1.44;
+  height: 100%;
+  aspect-ratio: 1.45;
   object-fit: cover;
-  transition: transform 700ms var(--ease-out);
-}
-.project-image:hover img {
-  transform: scale(1.035);
-}
-.project-open {
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
-  width: 41px;
-  height: 41px;
-  border-radius: 50%;
-  background: var(--paper);
-  display: grid;
-  place-items: center;
-  font-size: 24px;
+  object-position: var(--image-focus, 50%) 50%;
 }
 .project-meta {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-  margin-top: 20px;
-  padding-bottom: 18px;
-  border-bottom: 1px solid var(--line);
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+  padding: clamp(32px, 3.2vw, 52px);
+}
+.js .project-meta {
+  cursor: pointer;
+}
+.project-kicker {
+  margin: 0 0 18px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--card-soft, var(--line));
+}
+.project-kicker > span {
+  margin-right: 14px;
+  color: var(--card-accent, var(--orange));
+}
+.project-kicker > span::after {
+  content: "";
+  display: inline-block;
+  width: 28px;
+  height: 1px;
+  margin-left: 14px;
+  vertical-align: middle;
+  background: currentColor;
 }
 .project-meta h3 {
-  font-size: 1.23rem;
+  margin: 0;
+  font-size: clamp(2.1rem, 2.9vw, 3.25rem);
+  line-height: 1.05;
+  letter-spacing: -0.045em;
 }
-.project-meta > span {
-  font-size: 0.75rem;
-  letter-spacing: 0.07em;
-  white-space: nowrap;
-  color: var(--muted);
+/* JavaScript stacks a hidden second copy of each title in one grid cell, so the roll matches the
+   title's height even when it wraps. The gap keeps descenders out of view between copies. */
+.title-roll {
+  --roll-gap: 0.3em;
+  display: grid;
+  overflow: hidden;
+  overflow: clip;
+  padding-block: 0.14em;
+  margin-block: -0.14em;
+}
+.title-copy {
+  grid-area: 1 / 1;
+  transition: transform 650ms var(--ease-out);
+}
+.title-copy + .title-copy {
+  color: var(--card-accent, var(--orange));
+  transform: translateY(calc(100% + var(--roll-gap)));
+}
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 26px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.project-tags li {
+  padding: 7px 16px;
+  border-radius: 999px;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 0.8125rem;
+  line-height: 1.4;
+}
+.project-summary {
+  max-width: 34em;
+  margin: 26px 0 28px;
+  font-size: 1.0625rem;
+  line-height: 1.7;
+}
+/* A rotating "View project" seal; an orange fill grows from its centre on hover or focus. */
+.project-badge {
+  position: relative;
+  display: grid;
+  place-items: center;
+  align-self: flex-end;
+  width: 108px;
+  height: 108px;
+  margin-top: auto;
+  border-radius: 50%;
+  background: var(--paper);
+  color: var(--ink);
+  isolation: isolate;
+}
+.project-badge::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: 50%;
+  background: var(--orange);
+  transform: scale(0);
+  transition: transform 450ms var(--ease-out);
+}
+.project-badge svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+.project-badge-arrow {
+  font-size: 34px;
+  line-height: 1;
+  color: var(--orange);
+  transition:
+    color 300ms ease,
+    transform 300ms var(--ease-out);
+}
+.project:hover .project-badge::before,
+.project:has(.project-image:focus-visible) .project-badge::before {
+  transform: scale(1);
+}
+.project:hover .project-badge-arrow,
+.project:has(.project-image:focus-visible) .project-badge-arrow {
+  color: var(--ink);
+  transform: rotate(45deg);
+}
+@keyframes badge-spin {
+  to {
+    rotate: 360deg;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .project-badge svg {
+    animation: badge-spin 18s linear infinite;
+  }
+  .project:has(.project-image:focus-visible) .title-copy:first-child {
+    transform: translateY(calc(-100% - var(--roll-gap)));
+  }
+  .project:has(.project-image:focus-visible) .title-copy + .title-copy {
+    transform: none;
+  }
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .project:hover .title-copy:first-child {
+    transform: translateY(calc(-100% - var(--roll-gap)));
+  }
+  .project:hover .title-copy + .title-copy {
+    transform: none;
+  }
+}
+/* On mouse-driven screens the image drifts away from the pointer (--cursor-x, --cursor-y from −1
+   to 1, eased by script.js). The 1.05 overscan leaves 2.5% on each side, more than the 1.5% shift. */
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .project-image img {
+    transform: translate3d(
+        calc(var(--cursor-x, 0) * -1.5%),
+        calc(var(--cursor-y, 0) * -1.5%),
+        0
+      )
+      scale(1.05);
+  }
+}
+/* On desktop the cards grow past the text column, keeping clear of the chapter rail. */
+@media (min-width: 1101px) {
+  .work-grid {
+    --work-width: max(100%, min(1520px, 100vw - 136px));
+    width: var(--work-width);
+    margin-inline: calc((100% - var(--work-width)) / 2);
+  }
+}
+/* The header tucks away while reading downwards on desktop, so stuck cards sit near the top. */
+@media screen and (min-width: 1101px) and (min-height: 720px) {
+  .project {
+    position: sticky;
+    top: calc(28px + var(--i, 0) * 16px);
+    box-shadow: 0 -24px 60px -36px rgb(20 22 18 / 0.45);
+  }
 }
 .work-note {
-  margin-top: 118px;
+  margin-top: 72px;
   display: flex;
   justify-content: space-between;
   gap: 20px;
@@ -1363,13 +2134,126 @@ h2 {
   font-size: 0.85rem;
   color: var(--muted);
 }
-.project-image:focus-visible img {
-  transform: scale(1.035);
+/* Card entrance: the image mask opens from the left while the image slides in behind it at a
+   slower, layered speed; the panel's lines then rise in sequence. Pre-entrance states are below. */
+.project-image.is-revealed {
+  transition: clip-path 1200ms var(--ease-in-out) var(--work-stagger, 0ms);
 }
-.project-image:hover .project-open,
-.project-image:focus-visible .project-open {
-  background: var(--orange);
-  transform: rotate(45deg);
+.project-image.is-revealed img {
+  transition:
+    translate 1800ms var(--ease-out) var(--work-stagger, 0ms),
+    scale 1800ms var(--ease-out) var(--work-stagger, 0ms);
+}
+.project-meta > :nth-child(2) {
+  --meta-step: 80ms;
+}
+.project-meta > :nth-child(3) {
+  --meta-step: 160ms;
+}
+.project-meta > :nth-child(4) {
+  --meta-step: 240ms;
+}
+.project-meta > :nth-child(5) {
+  --meta-step: 320ms;
+}
+.project-meta.is-revealed > * {
+  transition:
+    opacity 800ms ease calc(var(--work-stagger, 0ms) + var(--meta-step, 0ms)),
+    translate 1000ms var(--ease-out)
+      calc(var(--work-stagger, 0ms) + var(--meta-step, 0ms));
+}
+/* Pre-entrance states apply only while JavaScript runs the entrances, and never in print. */
+@media screen {
+  .work-motion .section-heading:not(.is-revealed) .mask-line > span {
+    translate: 0 110%;
+  }
+  .work-motion .section-heading:not(.is-revealed) .work-eyebrow::after {
+    transform: scaleX(0);
+  }
+  .work-motion .section-heading:not(.is-revealed) > p {
+    opacity: 0;
+    translate: 0 16px;
+  }
+  /* The open mask keeps a matching shape, so the entrance interpolates. */
+  .work-motion .project-image {
+    clip-path: inset(0);
+  }
+  .work-motion .project-image:not(.is-revealed) {
+    clip-path: inset(0 100% 0 0);
+  }
+  .work-motion .project-image:not(.is-revealed) img {
+    translate: -18% 0;
+    scale: 1.16;
+  }
+  .work-motion .project-meta:not(.is-revealed) > * {
+    opacity: 0;
+    translate: 0 28px;
+  }
+}
+/* Below 900px the image sits above the panel. */
+@media (max-width: 900px) {
+  .project {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .project-image img {
+    height: auto;
+    aspect-ratio: 1.5;
+  }
+  .project-meta {
+    padding: 32px 28px 28px;
+  }
+  .project-badge {
+    width: 100px;
+    height: 100px;
+  }
+}
+@media (max-width: 760px) {
+  .work-grid {
+    gap: 24px;
+  }
+  .project {
+    --card-radius: 18px;
+  }
+  .project-meta {
+    padding: 26px 22px 22px;
+  }
+  .project-meta h3 {
+    font-size: clamp(1.9rem, 8vw, 2.6rem);
+  }
+  .project-tags {
+    gap: 8px;
+    margin-top: 20px;
+  }
+  .project-tags li {
+    padding: 6px 14px;
+    font-size: 0.8rem;
+  }
+  .project-summary {
+    margin: 20px 0 24px;
+    font-size: 0.95rem;
+  }
+  .project-badge {
+    width: 84px;
+    height: 84px;
+  }
+  .project-badge-arrow {
+    font-size: 26px;
+  }
+}
+/* One column on mobile: shorter travel, the same direction and layering. */
+@media screen and (max-width: 760px) {
+  .work-motion .project-image:not(.is-revealed) img {
+    translate: -10% 0;
+    scale: 1.08;
+  }
+  .project-image.is-revealed {
+    transition: clip-path 1000ms var(--ease-in-out) var(--work-stagger, 0ms);
+  }
+  .project-image.is-revealed img {
+    transition:
+      translate 1400ms var(--ease-out) var(--work-stagger, 0ms),
+      scale 1400ms var(--ease-out) var(--work-stagger, 0ms);
+  }
 }
 /* Services */
 .services {
@@ -2006,22 +2890,6 @@ dialog::backdrop {
 .scroll-motion .hero-bottom a span {
   transform: translateY(calc(var(--scene-progress, 0) * 14px));
 }
-.scroll-motion .project-image::after {
-  content: "";
-  position: absolute;
-  inset: -1px;
-  z-index: 1;
-  pointer-events: none;
-  background: var(--paper);
-  transform-origin: bottom;
-  transform: scaleY(calc(1 - clamp(0, var(--scene-progress, 0) * 2.8, 1)));
-}
-.scroll-motion .project-image img {
-  scale: calc(1.12 - var(--scene-progress, 0) * 0.12);
-}
-.scroll-motion .project:focus-within .project-image::after {
-  transform: scaleY(0);
-}
 .scroll-motion .services::before {
   scale: calc(0.94 + clamp(0, var(--scene-progress, 0) * 3, 1) * 0.06) 1;
 }
@@ -2133,11 +3001,6 @@ dialog::backdrop {
   .services-layout {
     gap: 7%;
   }
-  .project-meta {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 6px;
-  }
   .about-lead {
     gap: 30px 7%;
   }
@@ -2152,12 +3015,6 @@ dialog::backdrop {
   .scroll-motion .footer-top {
     transform: none;
     scale: none;
-  }
-  .scroll-motion .project-image::after {
-    display: none;
-  }
-  .scroll-motion .project-image img {
-    scale: calc(1.04 - var(--scene-progress, 0) * 0.04);
   }
   .scroll-motion .services::before {
     scale: none;
@@ -2271,26 +3128,6 @@ dialog::backdrop {
   .section-heading > p {
     margin-top: 23px;
     font-size: 0.9rem;
-  }
-  .work-grid {
-    grid-template-columns: 1fr;
-    gap: 32px;
-  }
-  .project-offset {
-    transform: none;
-  }
-  .project-image img {
-    aspect-ratio: 1.4;
-  }
-  .project-meta {
-    flex-direction: row;
-    align-items: center;
-  }
-  .project-meta h3 {
-    font-size: 1.1rem;
-  }
-  .project-meta > span {
-    font-size: 0.75rem;
   }
   .work-note {
     margin-top: 35px;
@@ -2504,10 +3341,6 @@ dialog::backdrop {
     font-size: 0.8rem;
     gap: 8px;
   }
-  .project-meta {
-    align-items: flex-start;
-    flex-direction: column;
-  }
   .contact-arrow {
     font-size: 4rem;
   }
@@ -2547,16 +3380,14 @@ dialog::backdrop {
   .crew-showcase [data-crew-clone] {
     display: none;
   }
-  .project-image:hover img,
-  .project-image:focus-visible img,
   .button:hover,
   .button:hover span,
   .text-link:hover span,
   .nav-cta:hover span,
   .back-top:hover span,
   .hero-project:hover .circle-arrow,
-  .project-image:hover .project-open,
-  .project-image:focus-visible .project-open {
+  .project:hover .project-badge-arrow,
+  .project:has(.project-image:focus-visible) .project-badge-arrow {
     transform: none;
   }
 }
@@ -2566,9 +3397,6 @@ dialog::backdrop {
     opacity: 1;
     translate: none;
     scale: none;
-  }
-  .scroll-motion .project-image::after {
-    display: none;
   }
   .scroll-motion .story-word {
     opacity: 1;
