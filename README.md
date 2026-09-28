@@ -57,6 +57,8 @@ Replace the example repository URL. If an `origin` already exists, check it with
 
 Change colors in the `:root` block in `styles.css`. Project cards live in HTML; their enlarged views are described in the `projects` object in `script.js`. Service descriptions use native `<details>` elements and work without JavaScript. Contact links and location live in `index.html`.
 
+Icons are SVG symbols in the sprite at the top of `<body>`: `icon-arrow-up-right`, `icon-arrow-up`, `icon-arrow-down`, `icon-asterisk` and `icon-close`. Place one with `<svg class="icon" width="24" height="24" aria-hidden="true"><use href="#icon-arrow-up-right" /></svg>`. It takes the surrounding font size and text colour; set `--icon-stroke` on a parent to lighten a large icon. Do not type arrows, stars or other symbol characters as icons. Manrope has no glyphs for them, so the browser substitutes a system font, which on iPhone, iPad and Mac is often the colour emoji font.
+
 There are no invented testimonials, performance statistics, awards, locations, or project results. The client strip shows logos cut from the supplied portfolio into transparent WebP files in `assets/clients/` (e.youth Mathrubhumi page 6, JG Institute page 8, English Debate Club page 10, Byte page 13, Urbane Culture page 26). White lettering from dark portfolio backgrounds is recoloured charcoal so it reads on the light strip. The English Debate Club lockup in the portfolio misspells "English", so only its mark is used, beside live text. Saleena Pickles has no standalone logo in the portfolio and stays as type until a logo file is supplied. Crew names and roles come from the owner-supplied portrait filenames in `assets/Crew/`. All 12 supplied crew members appear in the photo wall.
 
 ## Chapter navigation

@@ -65,6 +65,25 @@
     </script>
   </head>
   <body>
+    <!-- UI icons are SVG symbols, not text characters: Manrope has no arrow or asterisk glyphs, and
+         the system fallback on Apple devices is the colour emoji font. Stroke and size come from .icon. -->
+    <svg class="icon-sprite" width="0" height="0" aria-hidden="true">
+      <symbol id="icon-arrow-up-right" viewBox="0 0 24 24">
+        <path d="M6 18 18 6M8 6h10v10" />
+      </symbol>
+      <symbol id="icon-arrow-up" viewBox="0 0 24 24">
+        <path d="M12 20V4m-6 6 6-6 6 6" />
+      </symbol>
+      <symbol id="icon-arrow-down" viewBox="0 0 24 24">
+        <path d="M12 4v16m-6-6 6 6 6-6" />
+      </symbol>
+      <symbol id="icon-asterisk" viewBox="0 0 24 24">
+        <path d="M12 3v18M3 12h18M5.64 5.64l12.72 12.72M18.36 5.64 5.64 18.36" />
+      </symbol>
+      <symbol id="icon-close" viewBox="0 0 24 24">
+        <path d="m6 6 12 12M18 6 6 18" />
+      </symbol>
+    </svg>
     <a class="skip-link" href="#main">Skip to content</a>
     <header class="site-header">
       <div class="container nav-wrap">
@@ -103,7 +122,7 @@
         </div>
         <div class="header-actions">
           <a class="nav-cta" href="#contact"
-            >Let’s talk <span aria-hidden="true">↗</span></a
+            >Let’s talk <span aria-hidden="true"><svg class="icon" width="24" height="24" aria-hidden="true"><use href="#icon-arrow-up-right" /></svg></span></a
           >
           <button
             class="menu-toggle"
@@ -224,7 +243,7 @@
           </div>
         </div>
         <div class="opening-meta container">
-          <span><span class="opening-star">✳</span> Creative × digital studio</span>
+          <span><span class="opening-star"><svg class="icon" width="24" height="24" aria-hidden="true"><use href="#icon-asterisk" /></svg></span> Creative × digital studio</span>
           <span class="opening-cue"><span class="opening-cue-line"></span>Scroll</span>
           <span>Ambalavayal · Wayanad</span>
         </div>
@@ -236,7 +255,7 @@
       <section class="hero container" id="home" aria-labelledby="hero-title">
         <div class="hero-copy" data-stagger>
           <p class="eyebrow" data-reveal="up">
-            <span class="tiny-star" aria-hidden="true">✳</span> BRANDING.
+            <span class="tiny-star" aria-hidden="true"><svg class="icon" width="24" height="24" aria-hidden="true"><use href="#icon-asterisk" /></svg></span> BRANDING.
             WEBSITES. DIGITAL CAMPAIGNS.
           </p>
           <h1 id="hero-title">
@@ -253,9 +272,9 @@
           </p>
           <div class="hero-actions" data-reveal="up">
             <a class="button button-dark" href="#work"
-              >Explore our work <span aria-hidden="true">↗</span></a
+              >Explore our work <span aria-hidden="true"><svg class="icon" width="24" height="24" aria-hidden="true"><use href="#icon-arrow-up-right" /></svg></span></a
             ><a class="text-link" href="#contact"
-              >Build with us <span aria-hidden="true">↗</span></a
+              >Build with us <span aria-hidden="true"><svg class="icon" width="24" height="24" aria-hidden="true"><use href="#icon-arrow-up-right" /></svg></span></a
             >
           </div>
           <div class="hero-signoff" data-reveal="up">
@@ -274,7 +293,7 @@
           >
             <div class="studio-heading">
               <p>Creative thinking.<br /><span>Digital form.</span></p>
-              <span class="studio-mark" aria-hidden="true">✳</span>
+              <span class="studio-mark" aria-hidden="true"><svg class="icon" width="24" height="24" aria-hidden="true"><use href="#icon-asterisk" /></svg></span>
             </div>
             <figure class="hero-browser">
               <figcaption class="browser-chrome">
@@ -282,7 +301,7 @@
                   ><i></i><i></i><i></i
                 ></span>
                 <span>Glam Walk · Website design</span>
-                <span aria-hidden="true">↗</span>
+                <span aria-hidden="true"><svg class="icon" width="24" height="24" aria-hidden="true"><use href="#icon-arrow-up-right" /></svg></span>
               </figcaption>
               <img
                 src="assets/hero-glam-walk.webp"
@@ -294,7 +313,7 @@
             </figure>
             <figure class="hero-brand">
               <figcaption>
-                BRAND IDENTITY <span aria-hidden="true">↗</span>
+                BRAND IDENTITY <span aria-hidden="true"><svg class="icon" width="24" height="24" aria-hidden="true"><use href="#icon-arrow-up-right" /></svg></span>
               </figcaption>
               <img
                 src="assets/english-debate.webp"
@@ -326,13 +345,13 @@
               ><small>BRANDING / WEBSITES / CONTENT</small
               ><strong>One brand. Every digital touchpoint.</strong></span
             >
-            <span class="circle-arrow" aria-hidden="true">↗</span>
+            <span class="circle-arrow" aria-hidden="true"><svg class="icon" width="24" height="24" aria-hidden="true"><use href="#icon-arrow-up-right" /></svg></span>
           </a>
         </div>
         <div class="hero-bottom" data-reveal="fade">
           <span>STRATEGY MEETS A LITTLE CREATIVE INSTINCT.</span
           ><a href="#clients"
-            >A scroll worth taking <span aria-hidden="true">↓</span></a
+            >A scroll worth taking <span aria-hidden="true"><svg class="icon" width="24" height="24" aria-hidden="true"><use href="#icon-arrow-down" /></svg></span></a
           >
         </div>
       </section>
@@ -461,7 +480,7 @@
                     </textPath>
                   </text>
                 </svg>
-                <span class="project-badge-arrow">↗</span>
+                <span class="project-badge-arrow"><svg class="icon" width="24" height="24" aria-hidden="true"><use href="#icon-arrow-up-right" /></svg></span>
               </span>
             </div>
           </article>
@@ -511,7 +530,7 @@
                     </textPath>
                   </text>
                 </svg>
-                <span class="project-badge-arrow">↗</span>
+                <span class="project-badge-arrow"><svg class="icon" width="24" height="24" aria-hidden="true"><use href="#icon-arrow-up-right" /></svg></span>
               </span>
             </div>
           </article>
@@ -560,7 +579,7 @@
                     </textPath>
                   </text>
                 </svg>
-                <span class="project-badge-arrow">↗</span>
+                <span class="project-badge-arrow"><svg class="icon" width="24" height="24" aria-hidden="true"><use href="#icon-arrow-up-right" /></svg></span>
               </span>
             </div>
           </article>
@@ -610,7 +629,7 @@
                     </textPath>
                   </text>
                 </svg>
-                <span class="project-badge-arrow">↗</span>
+                <span class="project-badge-arrow"><svg class="icon" width="24" height="24" aria-hidden="true"><use href="#icon-arrow-up-right" /></svg></span>
               </span>
             </div>
           </article>
@@ -618,7 +637,7 @@
         <div class="work-note" data-reveal="fade">
           <span>Every brand has a story. Let’s make yours the next one.</span
           ><a class="text-link" href="#contact"
-            >Start something good <span aria-hidden="true">↗</span></a
+            >Start something good <span aria-hidden="true"><svg class="icon" width="24" height="24" aria-hidden="true"><use href="#icon-arrow-up-right" /></svg></span></a
           >
         </div>
       </section>
@@ -639,10 +658,10 @@
               skills your brand needs, all working together.
             </p>
             <a class="button button-light" href="#contact"
-              >Find your solution <span aria-hidden="true">↗</span></a
+              >Find your solution <span aria-hidden="true"><svg class="icon" width="24" height="24" aria-hidden="true"><use href="#icon-arrow-up-right" /></svg></span></a
             >
             <div class="service-progress" aria-hidden="true"><span></span></div>
-            <span class="service-asterisk" aria-hidden="true">✳</span>
+            <span class="service-asterisk" aria-hidden="true"><svg class="icon" width="24" height="24" aria-hidden="true"><use href="#icon-asterisk" /></svg></span>
           </div>
           <div class="service-list">
             <details open>
@@ -1055,7 +1074,7 @@
             <h2 id="contact-title">
               Let’s make<br /><span class="serif">it matter.</span>
             </h2>
-            <span class="contact-arrow" aria-hidden="true">↗</span>
+            <span class="contact-arrow" aria-hidden="true"><svg class="icon" width="24" height="24" aria-hidden="true"><use href="#icon-arrow-up-right" /></svg></span>
           </div>
           <div class="contact-bottom" data-reveal="fade">
             <p>
@@ -1067,7 +1086,7 @@
                 class="button button-dark"
                 id="contact-primary"
                 href="https://wa.me/919526896340"
-                >Let’s talk on WhatsApp <span aria-hidden="true">↗</span></a
+                >Let’s talk on WhatsApp <span aria-hidden="true"><svg class="icon" width="24" height="24" aria-hidden="true"><use href="#icon-arrow-up-right" /></svg></span></a
               >
               <p class="contact-caption" id="contact-caption">
                 Ambalavayal, Wayanad · India
@@ -1083,13 +1102,13 @@
               <span class="eyebrow">LET’S CONNECT</span
               ><a class="contact-number" href="tel:+919526896340"
                 >+91 95268 96340</a
-              ><a href="https://wa.me/919526896340">WhatsApp this number ↗</a>
+              ><a href="https://wa.me/919526896340">WhatsApp this number <svg class="icon" width="24" height="24" aria-hidden="true"><use href="#icon-arrow-up-right" /></svg></a>
             </div>
             <div>
               <span class="eyebrow">ANOTHER WAY TO REACH US</span
               ><a class="contact-number" href="tel:+918075891492"
                 >+91 80758 91492</a
-              ><a href="https://wa.me/918075891492">WhatsApp this number ↗</a>
+              ><a href="https://wa.me/918075891492">WhatsApp this number <svg class="icon" width="24" height="24" aria-hidden="true"><use href="#icon-arrow-up-right" /></svg></a>
             </div>
           </div>
         </div>
@@ -1102,11 +1121,11 @@
           class="footer-wordmark"
           href="#home"
           aria-label="Marzi Media, back to top"
-          >marzi<span>✳</span></a
+          >marzi<span><svg class="icon" width="24" height="24" aria-hidden="true"><use href="#icon-asterisk" /></svg></span></a
         >
         <p>One partner.<br />Every business solution.</p>
         <a class="back-top" href="#home"
-          >Back to top <span aria-hidden="true">↑</span></a
+          >Back to top <span aria-hidden="true"><svg class="icon" width="24" height="24" aria-hidden="true"><use href="#icon-arrow-up" /></svg></span></a
         >
       </div>
       <div class="container footer-bottom">
@@ -1127,7 +1146,7 @@
         data-close
         aria-label="Close project"
       >
-        ×</button
+        <svg class="icon" width="24" height="24" aria-hidden="true"><use href="#icon-close" /></svg></button
       ><img
         id="dialog-image"
         src="assets/saleena.webp"
@@ -1140,7 +1159,7 @@
         <h2 id="dialog-title">Selected project</h2>
         <p id="dialog-description"></p>
         <a class="text-link" href="#contact" id="dialog-contact"
-          >Create something with us <span aria-hidden="true">↗</span></a
+          >Create something with us <span aria-hidden="true"><svg class="icon" width="24" height="24" aria-hidden="true"><use href="#icon-arrow-up-right" /></svg></span></a
         >
       </div>
     </dialog>
@@ -1149,7 +1168,7 @@
     <dialog class="menu-overlay" id="site-menu" aria-labelledby="menu-title">
       <div class="menu-shell container">
         <p class="eyebrow menu-eyebrow" id="menu-title">
-          <span aria-hidden="true">✳︎</span> Chapters
+          <span aria-hidden="true"><svg class="icon" width="24" height="24" aria-hidden="true"><use href="#icon-asterisk" /></svg></span> Chapters
         </p>
         <button
           class="menu-close"
@@ -1168,57 +1187,67 @@
           <ol class="menu-list">
             <li>
               <a href="#work"
-                ><span class="menu-number">01</span>
+                ><span class="menu-number"
+                  >01<svg class="icon menu-current" width="24" height="24" aria-hidden="true"><use href="#icon-asterisk" /></svg></span
+                >
                 <span class="menu-word"
                   ><span class="menu-sans">Our work</span
                   ><span class="menu-serif" aria-hidden="true"
                     >Our work</span
                   ></span
-                ><span class="menu-arrow" aria-hidden="true">↗</span></a
+                ><span class="menu-arrow" aria-hidden="true"><svg class="icon" width="24" height="24" aria-hidden="true"><use href="#icon-arrow-up-right" /></svg></span></a
               >
             </li>
             <li>
               <a href="#services"
-                ><span class="menu-number">02</span>
+                ><span class="menu-number"
+                  >02<svg class="icon menu-current" width="24" height="24" aria-hidden="true"><use href="#icon-asterisk" /></svg></span
+                >
                 <span class="menu-word"
                   ><span class="menu-sans">What we do</span
                   ><span class="menu-serif" aria-hidden="true"
                     >What we do</span
                   ></span
-                ><span class="menu-arrow" aria-hidden="true">↗</span></a
+                ><span class="menu-arrow" aria-hidden="true"><svg class="icon" width="24" height="24" aria-hidden="true"><use href="#icon-arrow-up-right" /></svg></span></a
               >
             </li>
             <li>
               <a href="#about"
-                ><span class="menu-number">03</span>
+                ><span class="menu-number"
+                  >03<svg class="icon menu-current" width="24" height="24" aria-hidden="true"><use href="#icon-asterisk" /></svg></span
+                >
                 <span class="menu-word"
                   ><span class="menu-sans">About us</span
                   ><span class="menu-serif" aria-hidden="true"
                     >About us</span
                   ></span
-                ><span class="menu-arrow" aria-hidden="true">↗</span></a
+                ><span class="menu-arrow" aria-hidden="true"><svg class="icon" width="24" height="24" aria-hidden="true"><use href="#icon-arrow-up-right" /></svg></span></a
               >
             </li>
             <li>
               <a href="#why"
-                ><span class="menu-number">04</span>
+                ><span class="menu-number"
+                  >04<svg class="icon menu-current" width="24" height="24" aria-hidden="true"><use href="#icon-asterisk" /></svg></span
+                >
                 <span class="menu-word"
                   ><span class="menu-sans">Why Marzi</span
                   ><span class="menu-serif" aria-hidden="true"
                     >Why Marzi</span
                   ></span
-                ><span class="menu-arrow" aria-hidden="true">↗</span></a
+                ><span class="menu-arrow" aria-hidden="true"><svg class="icon" width="24" height="24" aria-hidden="true"><use href="#icon-arrow-up-right" /></svg></span></a
               >
             </li>
             <li>
               <a href="#contact"
-                ><span class="menu-number">05</span>
+                ><span class="menu-number"
+                  >05<svg class="icon menu-current" width="24" height="24" aria-hidden="true"><use href="#icon-asterisk" /></svg></span
+                >
                 <span class="menu-word"
                   ><span class="menu-sans">Let’s talk</span
                   ><span class="menu-serif" aria-hidden="true"
                     >Let’s talk</span
                   ></span
-                ><span class="menu-arrow" aria-hidden="true">↗</span></a
+                ><span class="menu-arrow" aria-hidden="true"><svg class="icon" width="24" height="24" aria-hidden="true"><use href="#icon-arrow-up-right" /></svg></span></a
               >
             </li>
           </ol>
@@ -1229,7 +1258,7 @@
             ><a class="menu-phone" href="tel:+919526896340">+91 95268 96340</a
             ><a href="https://wa.me/919526896340"
               >WhatsApp<span class="visually-hidden"> +91 95268 96340</span>
-              <span aria-hidden="true">↗</span></a
+              <span aria-hidden="true"><svg class="icon" width="24" height="24" aria-hidden="true"><use href="#icon-arrow-up-right" /></svg></span></a
             >
           </div>
           <div>
@@ -1237,7 +1266,7 @@
             ><a class="menu-phone" href="tel:+918075891492">+91 80758 91492</a
             ><a href="https://wa.me/918075891492"
               >WhatsApp<span class="visually-hidden"> +91 80758 91492</span>
-              <span aria-hidden="true">↗</span></a
+              <span aria-hidden="true"><svg class="icon" width="24" height="24" aria-hidden="true"><use href="#icon-arrow-up-right" /></svg></span></a
             >
           </div>
           <p>

@@ -218,6 +218,39 @@ h3 {
   white-space: nowrap;
   border: 0;
 }
+/* SVG icons from the sprite at the top of <body>. They take the size and colour of the text they
+   replace (1em, currentColor), so existing font-size, colour and transform rules still apply.
+   --icon-stroke adjusts weight where a large icon should stay light. */
+.icon-sprite {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+.icon {
+  display: inline-block;
+  flex-shrink: 0;
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.125em;
+  overflow: visible;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: var(--icon-stroke, 2);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+/* Display-size icons keep the lighter line of the glyphs they replace. */
+.circle-arrow,
+.menu-arrow,
+.studio-mark,
+.project-badge-arrow,
+.service-asterisk {
+  --icon-stroke: 1.5;
+}
+.contact-arrow {
+  --icon-stroke: 1.25;
+}
 .site-header {
   position: sticky;
   top: 0;
@@ -573,8 +606,12 @@ h3 {
   font-weight: 700;
   letter-spacing: 0.12em;
 }
-.menu-list a[aria-current] .menu-number::after {
-  content: " \2733\FE0E";
+.menu-current {
+  display: none;
+  margin-left: 0.3em;
+}
+.menu-list a[aria-current] .menu-current {
+  display: inline-block;
 }
 .menu-word {
   position: relative;
@@ -2034,7 +2071,7 @@ h2 {
   transform: scale(0);
   transition: transform 450ms var(--ease-out);
 }
-.project-badge svg {
+.project-badge > svg {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -2067,7 +2104,7 @@ h2 {
   }
 }
 @media (prefers-reduced-motion: no-preference) {
-  .project-badge svg {
+  .project-badge > svg {
     animation: badge-spin 18s linear infinite;
   }
   .project:has(.project-image:focus-visible) .title-copy:first-child {
