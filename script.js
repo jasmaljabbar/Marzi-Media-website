@@ -682,8 +682,8 @@
   }
 
   // Selected work: one-time heading, image and panel entrances, card-wide hover, and a subtle
-  // pointer parallax. Images open with a masked slide from the left (CSS); on tall desktop screens
-  // the cards stick and stack (CSS). Without JavaScript or with reduced motion, every part stays
+  // pointer parallax. Images open with a masked slide from the left (CSS); the cards stick and
+  // stack as they scroll (CSS). Without JavaScript or with reduced motion, every part stays
   // visible and static.
   const work = document.querySelector(".work-section");
   if (work) {
@@ -709,6 +709,19 @@
       meta.addEventListener("click", () => button.click());
       targets.push(button, meta);
     });
+
+    // Below desktop, each card's height lets CSS hold a tall card by its bottom edge. The stack
+    // turns on only once heights are known; reads come before writes to avoid forced layouts.
+    if ("ResizeObserver" in window) {
+      const grid = work.querySelector(".work-grid");
+      const stackObserver = new ResizeObserver((entries) => {
+        entries
+          .map(({ target }) => [target, target.offsetHeight])
+          .forEach(([card, height]) => card.style.setProperty("--card-height", `${height}px`));
+        grid.classList.add("is-stacking");
+      });
+      grid.querySelectorAll(".project").forEach((card) => stackObserver.observe(card));
+    }
 
     let workObserver = null;
     const revealWork = (element, delay = 0) => {
