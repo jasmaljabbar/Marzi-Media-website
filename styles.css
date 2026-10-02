@@ -2301,24 +2301,43 @@ h2 {
     opacity 900ms ease calc(var(--work-stagger, 0ms) + 380ms),
     translate 1000ms var(--ease-out) calc(var(--work-stagger, 0ms) + 380ms);
 }
+/* Every row takes the tallest card's height, so no card shows beneath a shorter one stacked over
+   it. The --stack-* values place the stacked cards (see "Stacking" below). */
 .work-grid {
+  --work-gap: 40px;
+  --stack-start: 28px;
+  --stack-step: 16px;
+  --stack-end: 16px;
   display: grid;
-  gap: 40px;
+  grid-auto-rows: 1fr;
+  gap: var(--work-gap);
 }
-/* Each project is one full-width card: the image on the left and a panel in the project's own
-   colours on the right. The colours are custom properties set on each article. The cards stick
-   and stack as they scroll, each settling a little lower than the last. */
+/* Each project is one full-width card: the image on one side and a panel in the project's own
+   colours on the other, alternating sides from card to card. The colours are custom properties
+   set on each article. The cards stick and stack as they scroll, each settling a little lower
+   than the last. Isolation keeps the rounded corners clipping the moving image layers in Safari. */
 .project {
   --card-radius: 24px;
   display: grid;
   grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  grid-template-areas: "image meta";
+  isolation: isolate;
   overflow: hidden;
   overflow: clip;
   border-radius: var(--card-radius);
   background: var(--card-bg, var(--dark));
   color: var(--card-ink, var(--paper));
 }
+/* Cards 2 and 4 mirror the layout: the panel leads, and its seal moves to the outer corner. */
+.project:nth-child(even) {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+  grid-template-areas: "meta image";
+}
+.project:nth-child(even) .project-badge {
+  align-self: flex-start;
+}
 .project-image {
+  grid-area: image;
   display: block;
   position: relative;
   isolation: isolate;
@@ -2342,6 +2361,7 @@ h2 {
   object-position: var(--image-focus, 50%) 50%;
 }
 .project-meta {
+  grid-area: meta;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -2513,7 +2533,8 @@ h2 {
     margin-inline: calc((100% - var(--work-width)) / 2);
   }
 }
-/* The header tucks away while reading downwards on desktop, so stuck cards sit near the top. */
+/* The header tucks away while reading downwards on desktop, so stuck cards sit near the top. This
+   is the stack without JavaScript; "Stacking" below refines it once the cards are measured. */
 @media screen and (min-width: 1101px) and (min-height: 720px) {
   .project {
     position: sticky;
@@ -2584,19 +2605,37 @@ h2 {
     translate: -18% 0;
     scale: 1.16;
   }
+  /* Mirrored cards open their image from the opposite edge. */
+  .work-motion .project:nth-child(even) .project-image:not(.is-revealed) {
+    clip-path: inset(0 0 0 100%);
+  }
+  .work-motion .project:nth-child(even) .project-image:not(.is-revealed) img {
+    translate: 18% 0;
+  }
   .work-motion .project-meta:not(.is-revealed) > * {
     opacity: 0;
     translate: 0 28px;
   }
 }
-/* Below 900px the image sits above the panel. */
+/* Below 900px the image sits above the panel, and the mirrored cards lead with the panel. The
+   panel row takes any height the shared row adds. Images use their own wide ratio. */
 @media (max-width: 900px) {
   .project {
     grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto 1fr;
+    grid-template-areas: "image" "meta";
+  }
+  .project:nth-child(even) {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: 1fr auto;
+    grid-template-areas: "meta" "image";
+  }
+  .project:nth-child(even) .project-badge {
+    align-self: flex-end;
   }
   .project-image img {
     height: auto;
-    aspect-ratio: 1.5;
+    aspect-ratio: 16 / 9;
   }
   .project-meta {
     padding: 32px 28px 28px;
@@ -2608,7 +2647,8 @@ h2 {
 }
 @media (max-width: 760px) {
   .work-grid {
-    gap: 24px;
+    --work-gap: 24px;
+    --stack-step: 10px;
   }
   .project {
     --card-radius: 18px;
@@ -2645,6 +2685,9 @@ h2 {
     translate: -10% 0;
     scale: 1.08;
   }
+  .work-motion .project:nth-child(even) .project-image:not(.is-revealed) img {
+    translate: 10% 0;
+  }
   .project-image.is-revealed {
     transition: clip-path 1000ms var(--ease-in-out) var(--work-stagger, 0ms);
   }
@@ -2654,24 +2697,42 @@ h2 {
       scale 1400ms var(--ease-out) var(--work-stagger, 0ms);
   }
 }
-/* Below desktop the cards stick and stack the same way, under the header that stays in view, with
-   a tighter step. A card taller than the space below the header holds once its bottom is in view
-   instead (script.js measures --card-height), so none of its content stays covered. svh keeps the
-   offsets steady while mobile toolbars show and hide. Landscape phones keep the plain list. */
-@media screen and (max-width: 1100px) and (min-height: 501px) {
+/* Stacking. Once script.js has measured the shared card height (--card-height) and the last card's
+   index (--stack-last), the cards stick on every screen, each one step lower than the last. When
+   the cards are taller than the space they stick in, the whole stack rises so a card holds only
+   once its bottom is in view. Each card's bottom margin, offset by a matching negative top margin,
+   ends its hold just as the last card settles, so the finished stack leaves together instead of
+   the last card sliding over the stepped edges. svh keeps every position steady while mobile
+   toolbars show and hide. */
+@media screen {
+  .work-grid.is-stacking {
+    row-gap: calc(var(--work-gap) - var(--stack-step));
+    padding-top: calc(var(--stack-last) * var(--stack-step));
+  }
   .work-grid.is-stacking > .project {
+    --stack-hold: calc((var(--stack-last) - var(--i, 0)) * var(--stack-step));
     position: sticky;
-    top: min(
-      calc(var(--header-height) + 12px + var(--i, 0) * 10px),
-      calc(100svh - var(--card-height) - 12px)
+    top: calc(
+      min(
+        var(--stack-start),
+        100svh - var(--card-height) - var(--stack-end) - var(--stack-last) *
+          var(--stack-step)
+      ) + var(--i, 0) * var(--stack-step)
     );
-    box-shadow: 0 -16px 40px -26px rgb(20 22 18 / 0.45);
+    margin-block: calc(var(--stack-hold) * -1) var(--stack-hold);
+    box-shadow: 0 -24px 60px -36px rgb(20 22 18 / 0.45);
   }
 }
-/* Stacked single-column cards use the images' own wide ratio, so more of each card fits. */
-@media screen and (max-width: 900px) and (min-height: 501px) {
-  .work-grid.is-stacking .project-image img {
-    aspect-ratio: 16 / 9;
+/* Below desktop the header stays in view, so the stack settles just beneath it. */
+@media screen and (max-width: 1100px) {
+  .work-grid {
+    --stack-start: calc(var(--header-height) + 12px);
+    --stack-end: 12px;
+  }
+}
+@media screen and (max-width: 760px) {
+  .work-grid.is-stacking > .project {
+    box-shadow: 0 -16px 40px -26px rgb(20 22 18 / 0.45);
   }
 }
 /* Services */

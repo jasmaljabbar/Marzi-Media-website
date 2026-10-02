@@ -710,17 +710,15 @@
       targets.push(button, meta);
     });
 
-    // Below desktop, each card's height lets CSS hold a tall card by its bottom edge. The stack
-    // turns on only once heights are known; reads come before writes to avoid forced layouts.
-    if ("ResizeObserver" in window) {
-      const grid = work.querySelector(".work-grid");
-      const stackObserver = new ResizeObserver((entries) => {
-        entries
-          .map(({ target }) => [target, target.offsetHeight])
-          .forEach(([card, height]) => card.style.setProperty("--card-height", `${height}px`));
+    // Every card shares one height (CSS rows). Measuring it lets CSS hold a card taller than the
+    // screen by its bottom edge, so the stack turns on only once that height is known.
+    const grid = work.querySelector(".work-grid");
+    if (cards.length && "ResizeObserver" in window) {
+      grid.style.setProperty("--stack-last", cards.length - 1);
+      new ResizeObserver(([{ target }]) => {
+        grid.style.setProperty("--card-height", `${target.offsetHeight}px`);
         grid.classList.add("is-stacking");
-      });
-      grid.querySelectorAll(".project").forEach((card) => stackObserver.observe(card));
+      }).observe(grid.querySelector(".project"));
     }
 
     let workObserver = null;
