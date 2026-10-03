@@ -53,9 +53,9 @@ Reference reviewed: https://www.urbanhubinnovations.com/ . Inspiration was limit
 
 ## Unverified information intentionally omitted
 
-Email, social profiles, street address, pricing, measurable results, founding date, testimonials, awards, registration marks, and a final domain.
+Social profiles, street address, pricing, measurable results, founding date, testimonials, awards, registration marks, and a final domain.
 
-The owner separately verified two public phone/WhatsApp numbers: +91 95268 96340 and +91 80758 91492, plus the location Ambalavayal, Wayanad. These are used in native contact links and organization structured data. No message is automatically sent.
+The owner separately verified two public phone/WhatsApp numbers: +91 95268 96340 and +91 80892 96340, the email aiwayanad@gmail.com, plus the location Ambalavayal, Wayanad. These are used in native contact links and organization structured data. No message is automatically sent.
 
 ## Asset licensing
 
@@ -69,7 +69,7 @@ The portfolio names no software, so the owner confirmed which tools the team use
 
 ## Crew wall update
 
-All 12 portraits supplied in `assets/Crew/` are displayed with names and roles taken from the filenames. Small WebP derivatives are stored in `assets/crew-web/`; original photographs are preserved. The earlier four-name leadership block is replaced by three portrait rows driven by page scroll position. Loop duplicates are presentation-only and hidden from assistive technology. Rows hold still when the page is not scrolling and reverse when scrolling upward. Keyboard and reduced-motion modes provide static horizontal browsing.
+All 13 portraits supplied in `assets/Crew/` are displayed with names and roles taken from the filenames. Small WebP derivatives are stored in `assets/crew-web/`; original photographs are preserved. The earlier four-name leadership block is replaced by three portrait rows driven by page scroll position. Loop duplicates are presentation-only and hidden from assistive technology. Rows hold still when the page is not scrolling and reverse when scrolling upward. Keyboard and reduced-motion modes provide static horizontal browsing.
 
 ## September 2026 UI refinement
 

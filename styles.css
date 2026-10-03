@@ -799,7 +799,7 @@ h3 {
     grid-template-columns: 4.5rem minmax(0, 1fr) auto;
   }
   .menu-footer {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 28px;
   }
   .menu-shell {
@@ -807,6 +807,9 @@ h3 {
   }
 }
 @media (min-width: 1101px) {
+  .menu-footer {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
   .js .menu-toggle {
     position: relative;
     right: auto;
@@ -2936,6 +2939,16 @@ details[open] summary h3 {
   gap: 20px;
   margin-bottom: 28px;
 }
+/* Leadership pair stays still and centred. Cards keep their size; on screens too narrow for both
+   side by side they stack rather than shrink, so names and roles stay legible. */
+.crew-lead {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--crew-gap);
+  padding: 6px 20px 12px;
+  margin-bottom: 12px;
+}
 .crew-row {
   overflow-x: auto;
   overflow-y: hidden;
@@ -3127,7 +3140,7 @@ details[open] summary h3 {
 }
 .contact-links {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 28px;
   margin-top: 42px;
 }
