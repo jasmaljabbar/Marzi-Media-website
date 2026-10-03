@@ -2939,15 +2939,20 @@ details[open] summary h3 {
   gap: 20px;
   margin-bottom: 28px;
 }
-/* Leadership pair stays still and centred. Cards keep their size; on screens too narrow for both
-   side by side they stack rather than shrink, so names and roles stay legible. */
+/* Leadership row stays still, centred and on one line: where the screen is too narrow for full-size
+   cards, they shrink together instead of wrapping. */
 .crew-lead {
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
   gap: var(--crew-gap);
   padding: 6px 20px 12px;
   margin-bottom: 12px;
+}
+.crew-lead .crew-card {
+  flex: 0 1 var(--crew-card);
+  min-width: 0;
+  height: auto;
+  aspect-ratio: 1;
 }
 .crew-row {
   overflow-x: auto;
@@ -3819,9 +3824,44 @@ dialog::backdrop {
     border-radius: 10px;
   }
 }
+/* Phones: three leadership cards share one line, so they turn portrait to keep faces clear of the
+   caption, and the caption tightens to fit the narrower card. */
+@media (max-width: 560px) {
+  .crew-lead {
+    gap: 8px;
+    padding-inline: 16px;
+  }
+  .crew-lead .crew-card {
+    aspect-ratio: 2 / 3;
+    border-radius: 14px;
+  }
+  .crew-lead .crew-card figcaption {
+    padding: 20px 8px 9px;
+  }
+  .crew-lead .crew-card strong {
+    font-size: 0.75rem;
+  }
+  .crew-lead .crew-card figcaption span {
+    font-size: 0.6875rem;
+    margin-top: 2px;
+  }
+}
 @media (max-width: 360px) {
   .hero-actions {
     gap: 14px;
+  }
+  .crew-lead {
+    gap: 6px;
+    padding-inline: 12px;
+  }
+  .crew-lead .crew-card figcaption {
+    padding-inline: 6px;
+  }
+  .crew-lead .crew-card strong {
+    font-size: 0.6875rem;
+  }
+  .crew-lead .crew-card figcaption span {
+    font-size: 0.625rem;
   }
   .button {
     font-size: 0.8rem;

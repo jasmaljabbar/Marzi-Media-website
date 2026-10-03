@@ -75,7 +75,7 @@ Navigation motion uses transform and opacity only. All chapter state comes from 
 
 ## Crew portraits
 
-The crew wall opens with a static, centred leadership pair (CEO & Founder and Managing Director) in `.crew-lead`, which stacks on screens too narrow for both cards. Below it are three alternating rows with large “Meet / the / Crew” typography. Names and roles remain visible on the photographs. On every screen size, vertical page scrolling controls the horizontal positions directly: scrolling down advances the rows, scrolling up reverses them, and stopping holds them still. There is no autoplay, timer, inertia, or pause button.
+The crew wall opens with a static, centred leadership row (CEO & Founder, Managing Director, COO) in `.crew-lead`. It stays on one line at every width: below 561px the cards shrink and turn portrait with a tighter caption. Below it are three alternating rows with large “Meet / the / Crew” typography. Names and roles remain visible on the photographs. On every screen size, vertical page scrolling controls the horizontal positions directly: scrolling down advances the rows, scrolling up reverses them, and stopping holds them still. There is no autoplay, timer, inertia, or pause button.
 
 Keyboard focus on a row (or tapping it on touch screens) switches it to a static horizontal list, allowing arrow-key or swipe scrolling. Reduced-motion preference and disabled JavaScript provide static, horizontally scrollable rows so every portrait can be explored at the reader’s pace. Repeated visual groups are hidden from assistive technology.
 
