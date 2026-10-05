@@ -2371,6 +2371,14 @@ h2 {
   min-width: 0;
   padding: clamp(32px, 3.2vw, 52px);
 }
+/* Cover the embedded client label at the right edge of Saleena's desktop image crop. */
+@media (min-width: 901px) {
+  #project-saleena .project-meta {
+    z-index: 1;
+    margin-left: -10%;
+    background: var(--card-bg);
+  }
+}
 .js .project-meta {
   cursor: pointer;
 }
