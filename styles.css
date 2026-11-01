@@ -3065,6 +3065,83 @@ details[open] summary h3 {
 .crew-ready.is-in-view .crew-track {
   will-change: transform;
 }
+/* Open role card: same box, caption and type as a crew-card, with a quiet
+   shimmer/glow/float standing in for a portrait that doesn't exist yet. */
+.crew-card--placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--paper), var(--line));
+}
+.crew-card--placeholder::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 30%,
+    #ffffffb3 50%,
+    transparent 70%
+  );
+  transform: translateX(-120%);
+  animation: crew-placeholder-shimmer 3.4s ease-in-out infinite;
+}
+.crew-placeholder-glow {
+  position: absolute;
+  inset: 20%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(244, 122, 32, 0.35),
+    transparent 70%
+  );
+  filter: blur(6px);
+  animation: crew-placeholder-pulse 2.6s ease-in-out infinite;
+}
+.crew-placeholder-icon {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--paper);
+  color: var(--orange-ink);
+  border: 1px solid var(--line);
+  box-shadow: 0 8px 20px -10px rgba(32, 33, 31, 0.25);
+  animation: crew-placeholder-float 3.6s ease-in-out infinite;
+}
+@keyframes crew-placeholder-shimmer {
+  0%,
+  15% {
+    transform: translateX(-120%);
+  }
+  60%,
+  100% {
+    transform: translateX(120%);
+  }
+}
+@keyframes crew-placeholder-pulse {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scale(0.92);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.05);
+  }
+}
+@keyframes crew-placeholder-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
 /* Why Marzi */
 .why-section {
   background: #eceedf;
