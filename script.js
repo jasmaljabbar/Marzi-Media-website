@@ -9,14 +9,6 @@
   const clamp = (value) => Math.max(0, Math.min(1, value));
 
   const projects = {
-    saleena: {
-      title: "Saleena Pickles",
-      category: "Packaging design",
-      image: "assets/saleena.webp",
-      alt: "Saleena Pickles mango jars with green packaging",
-      description:
-        "A packaging identity brought to life through green labels, ingredient-led imagery, and a warm product presentation. Selected work from the Marzi Media portfolio.",
-    },
     eyouth: {
       title: "e.youth Mathrubhumi",
       category: "Logo & branding",
@@ -25,21 +17,21 @@
       description:
         "A cohesive green visual identity, explored across social media, stationery, and merchandise. Selected work from the Marzi Media portfolio.",
     },
-    urban: {
-      title: "Urban Culture",
-      category: "Packaging design",
-      image: "assets/urban-culture.webp",
-      alt: "Urban Culture cosmetic packaging and campaign imagery",
+    "central-resto": {
+      title: "Central Resto Cafe",
+      category: "Graphic design",
+      image: "assets/central-resto-cafe.webp",
+      alt: "Central Resto Cafe chocolate ice cream poster with product photography and pricing",
       description:
-        "A dark, expressive packaging direction with purple accents and fashion-led imagery. Selected work from the Marzi Media portfolio.",
+        "Appetite-led social posters for a Wayanad cafe, pairing bold product photography with clear, confident typography. Selected work from the Marzi Media portfolio.",
     },
-    english: {
-      title: "English Debate Club",
-      category: "Logo & branding",
-      image: "assets/english-debate.webp",
-      alt: "English Debate Club identity in blue across digital and physical applications",
+    "jg-institute": {
+      title: "JG Institute of AI & HI",
+      category: "Digital marketing",
+      image: "assets/jg-institute-hr.webp",
+      alt: "JG Institute of AI & HI Human Resource Management course poster",
       description:
-        "A distinctive blue identity carried through digital touchpoints, signage, and printed materials. Selected work from the Marzi Media portfolio.",
+        "Recruitment and course-launch posters for an AI and HI training institute, built for clarity across busy social feeds. Selected work from the Marzi Media portfolio.",
     },
   };
   const projectDialog = document.getElementById("project-dialog");

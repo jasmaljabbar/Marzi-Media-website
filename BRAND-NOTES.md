@@ -110,6 +110,21 @@ The image lens is replaced by horizontal motion. Each project tile opens with a 
 
 Each project in “01 / Selected work” is now one full-width card instead of a two-column tile grid. The image fills the left of the card and a panel in the project's own colours fills the right: deep green for Saleena Pickles, leaf green with dark type for e.youth Mathrubhumi, near-black plum for Urban Culture and royal blue for English Debate Club. Each panel carries the project number and category, the title, white service tags, a one-line summary and a rotating “View project” seal that fills orange on hover. On desktop the cards are wider than the text column and stack as the page scrolls, each settling just below the last. The alternating side entrances, scroll depth tilt and receding neighbours are removed; images now open from the left and the panel text rises in. Service tags are drawn from each project's imagery and should be checked with the team. Reduced motion shows the static design.
 
+## Ten-division expansion — 9 November 2026
+
+The business repositioned from an 8-service creative/digital-marketing agency to a 10-division "Creative, Technology, Business Spaces & Solutions" agency, per owner brief. Real portfolio evidence exists for four divisions: Branding & Creative Design (e.youth Mathrubhumi), Digital Marketing (Central Resto Cafe and JG Institute posters, from `assets/works/`), Web & Software Development (the existing Glam Walk hero screenshot), and Printing & Signage (Saleena Pickles packaging, previously in Selected Work, reused here). The owner explicitly authorized licensed stock imagery for divisions without completed project examples, with the instruction to never present stock as real client work.
+
+Six divisions use Pexels stock photography (Pexels License — free for commercial use, no attribution required), downloaded and optimized locally rather than hot-linked, matching this site's no-third-party-request policy. Source photos, for reference:
+
+- AI & Business Automation — `pexels.com/photo/8439093` (robotic arm handing a cup to a person)
+- Video Production & Motion Design — `pexels.com/photo/32479534` (editor at a Premiere Pro timeline)
+- IT Infrastructure & Networking — `pexels.com/photo/17489157` (server blade rack)
+- CCTV & Security Solutions — `pexels.com/photo/7508684` (ceiling-mounted dome camera)
+- Interior Design & Space Solutions — `pexels.com/photo/13068366` (black-and-white modern office)
+- Business & Digital Solutions — `pexels.com/photo/7792836` (team reviewing documents and laptops)
+
+Originals are kept in `assets/stock/`; optimized web copies are `assets/service-<name>.webp`. Each is tagged "Illustrative" on its service card and page, distinct from the "Real project" tag used on genuine client work, so stock photography is never presented as completed Marzi Media work.
+
 ## Opening experience — 28 September 2026
 
 The site no longer opens straight onto the hero and its project collage. The first screen is now the Marzi mark itself, rebuilt in space: the yellow, red and orange bars as solid slabs and the dot as a sphere, standing in a faint construction grid on the paper background. In the first three seconds the grid and guide lines draw in from the edges, the bars grow up one after another, the dot drops into place and a thin orbit is drawn around it. After that the mark breathes gently and turns slightly toward the mouse. Three quiet captions sit along the bottom: “Creative × digital studio”, a scroll cue and “Ambalavayal · Wayanad”. Scrolling pulls the mark apart like doors (yellow to the left, red and orange to the right, the dot away) and uncovers “Branding. Websites. Campaigns.”, each word marked with its bar's colour. The hero then rises in beneath, and its headline animates on arrival rather than on page load. Two other directions were considered: a blueprint grid that opens like blinds, and a large kinetic MARZI wordmark. The mark was chosen because the three bars map to the three disciplines and it reuses the brand's own colours. It uses the existing vanilla scroll scheduler and no new library was added. Mobile keeps flat bars and a shorter scroll; reduced motion shows the settled mark.
