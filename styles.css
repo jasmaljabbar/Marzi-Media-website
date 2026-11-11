@@ -3004,6 +3004,11 @@ h2 {
   height: auto;
   aspect-ratio: 1;
 }
+/* Separates the three leadership portraits above from the full crew below. */
+.crew-divider {
+  border-top: 1px solid var(--line);
+  margin: 4px 20px 28px;
+}
 .crew-row {
   overflow-x: auto;
   overflow-y: hidden;
@@ -3077,7 +3082,7 @@ h2 {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-.crew-row-2 .crew-word {
+.crew-row-3 .crew-word {
   font-family: var(--serif);
   font-style: italic;
   padding-inline: 30px;
@@ -3951,6 +3956,9 @@ dialog::backdrop {
     gap: 8px;
     padding-inline: 16px;
   }
+  .crew-divider {
+    margin-inline: 16px;
+  }
   .crew-lead .crew-card {
     aspect-ratio: 2 / 3;
     border-radius: 14px;
@@ -3973,6 +3981,9 @@ dialog::backdrop {
   .crew-lead {
     gap: 6px;
     padding-inline: 12px;
+  }
+  .crew-divider {
+    margin-inline: 12px;
   }
   .crew-lead .crew-card figcaption {
     padding-inline: 6px;
