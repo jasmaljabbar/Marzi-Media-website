@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://marzi.thejguniverse.com/sitemap.xml

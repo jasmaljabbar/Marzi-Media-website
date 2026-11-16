@@ -1,117 +1,84 @@
 # Marzi Media
 
-A responsive, build-free agency website made with HTML5, CSS3, and vanilla JavaScript. All fonts and artwork are hosted locally. No framework, npm installation, tracking, or third-party runtime requests.
+The website of Marzi Media, a digital marketing and business solutions agency in Ambalavayal, Wayanad, Kerala. It is a responsive, build-free site made with HTML, CSS and vanilla JavaScript, served by GitHub Pages at https://marzi.thejguniverse.com/ (see `CNAME`). Fonts and images are hosted locally. There is no framework, npm install, tracking, cookies or third-party runtime request.
 
 ## Preview
 
-Open `index.html` directly, or run this from the project folder:
+Run this from the project folder, then visit http://localhost:4173:
 
 ```bash
 python3 -m http.server 4173
 ```
 
-Visit http://localhost:4173. The site uses relative asset paths and works at a GitHub Pages repository subpath.
+Use the local server rather than opening the files directly: links to the home page are written as `./` and `../`, which a browser only resolves to `index.html` when a server is running. The local server does not show `404.html` for missing paths; GitHub Pages does.
 
-## Contact
+## Contact details
 
-Verified by the owner: **+91 95268 96340**, **+91 80892 96340**, the email **aiwayanad@gmail.com**, and **Ambalavayal, Wayanad**. The primary CTA opens WhatsApp for the first number. Each number also has its own WhatsApp and click-to-call link. These are ordinary HTML links and work without JavaScript. Opening a chat does not send a message automatically.
+Verified by the owner: **+91 95268 96340**, **+91 80892 96340**, the email **aiwayanad@gmail.com**, and **Ambalavayal, Wayanad**. The street name **AI Zone** comes from the studio's own posters (`assets/works/`); confirm it with the owner. The posters also show **884 865 4655** and **marzimedia29@gmail.com**, which do not appear on the site. Search engines compare these details across the web, so the site, the posters, social profiles and a Google Business Profile should all use the same ones.
 
-Update contact links and organization structured data in `index.html` if details change. No social profile was supplied, so none is invented. No contact form or backend is needed.
-
-## Deploy to GitHub Pages
-
-1. Create a GitHub repository, for example `marzi-media`. Use a public repository if your plan requires it for Pages.
-2. Upload `index.html`, `styles.css`, `script.js`, `.nojekyll`, and the entire `assets` folder to the root of the `main` branch. Keep the font license with its font. Do not upload the original 478 MB portfolio PDF, QA screenshots, or ZIP archives.
-3. Open **Settings → Pages**.
-4. Under **Build and deployment**, choose **Deploy from a branch**.
-5. Choose **main** and **/ (root)**, then **Save**.
-6. Wait for the Pages deployment to finish. Visit the URL shown in Settings → Pages, usually `https://YOUR-USERNAME.github.io/marzi-media/`.
-7. Check navigation, project previews, mobile layout, and the verified contact links on the published URL.
-
-For an account root site, name the repository `YOUR-USERNAME.github.io`; the public URL then omits the repository segment. A custom domain can be configured in Pages settings later.
-
-Official instructions: https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site
-
-### Optional Git commands
-
-If this folder is not already a Git repository, run `git init -b main` first. Then:
-
-```bash
-git add index.html styles.css script.js assets .nojekyll .gitignore README.md BRAND-NOTES.md
-git commit -m "feat: add Marzi Media portfolio website"
-git remote add origin https://github.com/YOUR-USERNAME/marzi-media.git
-git push -u origin main
-```
-
-Replace the example repository URL. If an `origin` already exists, check it with `git remote -v` rather than adding it again. Do not overwrite an existing remote or branch without reviewing it.
+If any detail changes, update it everywhere it appears: the header and contact section of `index.html`, the footers of every page, the FAQ, and the JSON-LD blocks (`index.html` and each service page).
 
 ## Project map
 
-- `index.html` — semantic sections, SEO metadata, structured organization data, project dialog.
-- `styles.css` — brand tokens, layout, component styles, responsive breakpoints, reduced-motion rules.
-- `script.js` — chapter menu, chapter tracking (rail, rolling wordmark, progress ring), project dialogs, shared scroll scenes, one-time secondary reveals, and the scroll-driven crew rows.
-- `assets/` — optimized portfolio artwork, favicon, local Manrope font and SIL Open Font License.
-- `BRAND-NOTES.md` — source facts, design decisions, and content limitations.
+- `index.html`: the home page. It follows the 2026 wireframe: hero, client strip, about, services, why Marzi, selected work, crew, FAQ, contact, footer.
+- `work.html`: every portfolio project, with links to the matching service pages.
+- `services/*.html`: ten service pages.
+- `404.html`: the page GitHub Pages shows for any missing URL. Its links and assets are root-relative (`/home.css`) because it can be served at any depth.
+- `home.css`: styles for the home, work and 404 pages.
+- `styles.css`: styles for the service pages only. Rules that only the old home page used were removed in November 2026. That cut the file from 96 KB to 17 KB, and before-and-after screenshots of all ten pages at three widths were pixel-identical.
+- `script.js`: loaded by the home and work pages. It sets the footer year, turns the contact form into a WhatsApp message and moves the crew rows with scroll. Everything works in a simpler form without it.
+- `robots.txt`, `sitemap.xml`: crawl rules and the list of the 12 indexable URLs. Update `lastmod` in the sitemap when a page changes meaningfully.
+- `assets/`: images, the favicon, `logo.png` (512 × 512, used in structured data and as the Apple touch icon), `og-image.jpg` (1200 × 630 link preview), and the font: `manrope.woff2`, a Latin subset of `manrope.ttf`, with the SIL Open Font License beside it.
+- `BRAND-NOTES.md`, `REBRAND-STRATEGY-2026.md`: source facts and brand direction.
 
-## Editing
+## SEO setup
 
-Change colors in the `:root` block in `styles.css`. Project cards live in HTML; their enlarged views are described in the `projects` object in `script.js`. Service descriptions use native `<details>` elements and work without JavaScript. Contact links and location live in `index.html`.
+- Every page has a unique title of 60 characters or fewer, a meta description, a canonical URL, Open Graph and Twitter tags with `og-image.jpg`, and `lang="en-IN"`.
+- `index.html` carries one JSON-LD graph: `ProfessionalService` (address, phones, languages, the ten services), `WebSite` and `FAQPage`. Service pages carry `Service` and `BreadcrumbList`. `work.html` carries `CollectionPage` and `BreadcrumbList`.
+- Service pages have a visible breadcrumb. Their footers link to every service, the work page and the contact section.
+- Canonical URLs use the `.html` form for inner pages and `/` for the home page. Keep internal links in that form.
 
-Icons are SVG symbols in the sprite at the top of `<body>`: `icon-arrow-up-right`, `icon-arrow-up`, `icon-arrow-down`, `icon-asterisk` and `icon-close`. Place one with `<svg class="icon" width="24" height="24" aria-hidden="true"><use href="#icon-arrow-up-right" /></svg>`. It takes the surrounding font size and text colour; set `--icon-stroke` on a parent to lighten a large icon. Do not type arrows, stars or other symbol characters as icons. Manrope has no glyphs for them, so the browser substitutes a system font, which on iPhone, iPad and Mac is often the colour emoji font.
+Steps that are outside this repository:
 
-There are no invented testimonials, performance statistics, awards, locations, or project results. The client strip shows logos cut from the supplied portfolio into transparent WebP files in `assets/clients/` (e.youth Mathrubhumi page 6, JG Institute page 8, English Debate Club page 10, Byte page 13, Urbane Culture page 26). White lettering from dark portfolio backgrounds is recoloured charcoal so it reads on the light strip. The English Debate Club lockup in the portfolio misspells "English", so only its mark is used, beside live text. Saleena Pickles has no standalone logo in the portfolio and stays as type until a logo file is supplied. Crew names and roles come from the owner-supplied portrait filenames in `assets/Crew/`. All 13 supplied crew members appear in the photo wall.
+1. In the repository's **Settings › Pages**, tick **Enforce HTTPS**. Until then, the `http://` address also serves the site.
+2. Verify the domain in Google Search Console and submit `https://marzi.thejguniverse.com/sitemap.xml`.
+3. Create or claim a Google Business Profile with the same name, address and phone number as the site. Then add its link, and any social profiles, to `sameAs` in the `index.html` JSON-LD.
+4. If the business moves to its own domain, change `CNAME`, every canonical and `og:` URL, the JSON-LD, `robots.txt` and `sitemap.xml` together.
 
-## Chapter navigation
+## Home page details
 
-The navigation treats the page as five numbered chapters: 01 Our work, 02 What we do, 03 About us, 04 Why Marzi (`#why`), and 05 Let’s talk. The header keeps the Marzi mark and a “Let’s talk” link to `#contact`.
+- **Header.** The logo, a dark pill navigation (Home, About us, Services, Work, Contact) and a red "WhatsApp us" button. Below 860 px the navigation becomes a full-width row under the logo, and a floating WhatsApp button sits in the bottom-right corner. No menu script is needed.
+- **Hero.** The brand mark is an inline SVG of three bars and a dot. Its bars grow in on load (CSS transforms only, and off with reduced motion). The H1 is "Digital marketing & business solutions agency in Wayanad", and it is the largest element painted on load.
+- **Client strip.** Logos come from the supplied portfolio, in `assets/clients/`. The `-80` files are the ones in use, 80 px tall. Saleena Pickles has no standalone logo, so it is set as type.
+- **About.** The orange panel is a collage of six crew portraits (`-240` versions) linking to the crew wall. Replace it with a real team photo when one exists.
+- **Services.** Each card's heading link covers the whole card, so each service page is linked with its name as the anchor text.
+- **Crew.** There are two static leadership rows, then four rows that move with page scrolling. Where the browser supports `ViewTimeline` the compositor runs the motion; elsewhere one transform per frame is written from cached geometry. Copies of each row are added by `script.js`, hidden from assistive technology and made inert. Keyboard focus, reduced motion and disabled JavaScript give static rows that scroll sideways. The script does no layout work until the wall is within about one and a half screens. To add or change a person, edit the `.crew-group` blocks in `index.html` and add a 640 × 640 WebP to `assets/crew-web/`. The originals stay in `assets/Crew/`.
+- **FAQ.** Native `<details>` elements. The questions and answers are repeated in the `FAQPage` JSON-LD, so change both together.
+- **Contact form.** There is no backend. On submit, `script.js` opens WhatsApp with the name, phone number, service and message written out, and nothing is sent until the visitor presses send. Without JavaScript, the form still opens a WhatsApp chat with the studio.
 
-- **Rolling wordmark.** The MARZI MEDIA wordmark beside the mark rolls to the chapter being read (“What we do / CHAPTER 02”) and back to the wordmark at the top of the page. It is decorative (`aria-hidden`); the chapter links carry `aria-current="location"`.
-- **Chapter rail (1101 px and wider).** A slim capsule on the left edge lists 01–05. Each number’s line fills orange as its chapter is read; hovering or focusing a number shows its name. The capsule switches to a dark version over the services section and footer. The header tucks away while reading downwards and returns when scrolling up or when keyboard focus enters it.
-- **✳ menu button.** In the header on desktop and floating bottom right on smaller screens, within thumb reach. Its orange ring shows reading progress for the whole page.
-- **Chapter menu.** A full-screen orange native `<dialog>` with the chapters in large type (rising in sequence), both phone numbers, WhatsApp links and the location. The current chapter is set in the italic serif. Escape or the × closes it and returns focus to the menu button; choosing a chapter closes the menu, scrolls there, and moves keyboard focus to that section.
-- Without JavaScript, the rail still works as plain links: vertical on wide screens, a row of chapter chips under the header on smaller ones.
+## Icons
 
-Navigation motion uses transform and opacity only. All chapter state comes from cached section positions inside the single scheduled scroll frame shared with the crew and scroll scenes.
+Icons are SVG symbols in a sprite at the top of each page's `<body>`: `icon-arrow-up-right`, `icon-arrow-down` and `icon-chat` on the home page. Place one with `<svg class="icon" aria-hidden="true"><use href="#icon-arrow-up-right" /></svg>`. It takes the surrounding font size and text colour. Do not type arrows or other symbol characters as icons. Manrope has no glyphs for them, so browsers substitute a system font, which on Apple devices is often the colour emoji font.
 
-## Crew portraits
+## Images
 
-The crew wall opens with a static, centred leadership row (CEO & Founder, Managing Director, COO) in `.crew-lead`. It stays on one line at every width: below 561px the cards shrink and turn portrait with a tighter caption. Below it are three alternating rows with large “Meet / the / Crew” typography. Names and roles remain visible on the photographs. On every screen size, vertical page scrolling controls the horizontal positions directly: scrolling down advances the rows, scrolling up reverses them, and stopping holds them still. There is no autoplay, timer, inertia, or pause button.
-
-Keyboard focus on a row (or tapping it on touch screens) switches it to a static horizontal list, allowing arrow-key or swipe scrolling. Reduced-motion preference and disabled JavaScript provide static, horizontally scrollable rows so every portrait can be explored at the reader’s pace. Repeated visual groups are hidden from assistive technology.
-
-Each portrait lists `loading="lazy"` before `src`: copies keep attribute order, and a copy that sees `src` first would download immediately. All portraits switch to eager loading once the wall is within one viewport, so none waits for lazy loading while the rows move. Original photos remain in `assets/Crew/`. The website serves smaller WebP versions from `assets/crew-web/`. The exception is the Managing Director portrait, served as supplied from `assets/Crew/` (its filename contains a line break, written `%0A` in `src`), so that file must ship with the site. To change a portrait, replace its optimized file. Edit names, roles, or row order in the original `.crew-group` blocks in `index.html`; JavaScript creates the extra visual copies needed to fill wide screens automatically. In browsers with `ViewTimeline` (Chromium, Safari 26), each row is a scroll-linked Web Animation that the browser's compositor runs in step with page scrolling, so main-thread work cannot stall it. Other browsers use a fallback that writes one transform per scheduled scroll frame from cached geometry, via the non-inherited `--crew-offset` property, without reading layout. Both paths produce the same positions. The crew stops updating off-screen, and no continuous rendering loop runs.
+- Serve WebP at the size it is displayed: 640 px wide for full-width images, 400 px for two-up images, with `srcset` and `sizes` so phones download the smaller file.
+- Every content image has a descriptive `alt`. Portraits in the moving crew rows use `alt=""` because their caption already names the person.
+- Keep filenames as lowercase slugs. Files with spaces or line breaks in their names (the originals in `assets/Crew/` and `assets/works/`) are kept as sources only and are not linked from any page.
 
 ## Accessibility and performance
 
-- Semantic landmarks, skip link, one H1, meaningful image alternatives, visible keyboard focus.
-- Native dialogs support keyboard focus containment and Escape, and make the rest of the page inert. The menu button exposes `aria-haspopup` and `aria-expanded`. Selecting a chapter in the menu transfers focus to its destination. Focus rings stay visible over light, dark and orange sections.
-- Reduced-motion preference disables reveals and smooth scrolling. Content and navigation remain readable with JavaScript disabled; project enlargements need JavaScript; all contact links work without it.
-- WebP images, fixed image dimensions, lazy-loaded project images, eager hero, local font with `font-display: swap`, deferred scripts.
-- No build step, API keys, cookies, or required third-party requests.
-- Metadata includes title, description, Open Graph text, Twitter summary metadata, theme color, favicon, and organization structured data. No domain, canonical, or sitemap is fabricated. Add the final canonical URL and a sitemap after choosing the public domain.
+- Semantic landmarks, a skip link, one H1 per page, visible focus rings, and colour contrast of at least 4.5:1 for text. White text sits on the deeper red `#d62e1c`, not the brand red.
+- Reduced-motion preference turns off smooth scrolling, the hero entrance and crew motion.
+- The font is preloaded, and images have fixed dimensions, so there is no layout shift. Every image below the hero is lazy-loaded.
+- Lighthouse (mobile, local server, November 2026): home performance 100, accessibility 100, best practices 100, SEO 100. Total blocking time is 10 ms, down from 1,090 ms with the previous opening animation.
 
-## Hero composition
+## Deploy to GitHub Pages
 
-The hero presents three real portfolio disciplines inside a dark navy workspace: Glam Walk website design (PDF page 15), English Debate Club identity (page 11), and e.youth social content (page 7). Browser, brand board, and phone are HTML/CSS layers. Only the Glam Walk screenshot is a new asset: `assets/hero-glam-walk.webp`, 1100 × 527, approximately 43 KB. Existing identity assets are reused. No external stock or generated artwork is required.
+The site deploys from the root of the `main` branch. Upload or push `index.html`, `work.html`, `404.html`, `home.css`, `styles.css`, `script.js`, `robots.txt`, `sitemap.xml`, `CNAME`, `.nojekyll`, the `services` folder and the `assets` folder. Do not upload ZIP archives, QA screenshots or the original portfolio PDF.
 
-Fixed aspect ratios reserve the composition's space. Image dimensions are explicit; the main website image is preloaded. Each layer follows the existing hero scroll progress with smaller travel on mobile. Reduced motion and disabled JavaScript leave a complete static composition. The hero project link goes to selected work, where Saleena Pickles remains intact.
+GitHub's instructions for configuring a publishing source: https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site
 
-## Motion and UI maintenance
+## Content rules
 
-The existing HTML/CSS/vanilla JavaScript architecture remains. No runtime dependencies were added. CSS is grouped by component, followed by responsive and reduced-motion overrides.
-
-- `createScrollScenes` shares the existing scheduled scroll frame with navigation and crew. Geometry is cached and refreshed after resize, font loading, and disclosure changes. An Intersection Observer limits active scenes. No scroll interception or continuous animation loop is used.
-- Scene progress controls hero layer separation, service-panel arrival and progress rail, about-copy emphasis, reason-card arrival, contact glow/type, and footer arrival. Scrolling backward restores earlier states.
-- `data-reveal` remains for secondary entrances such as section headings. Main scroll scenes use their own progress rather than combining two entrance effects on one element.
-- The page opens on the brand mark in space (`.opening`, before `<main>`, hidden from assistive technology because the hero carries the same message). The three logo bars are CSS cuboids and the dot a sphere that always faces the viewer, standing in a construction grid pitched on the logo's 11-unit rhythm. On load, CSS draws the grid and guides, grows the bars in turn, drops the dot and draws its orbit; then the pieces drift and the scene sways slightly. A welcome lockup sits under the mark: “Welcome to” fades in letter by letter while the bars grow, a baseline rule draws, and “MARZI MEDIA” rises out of the rule letter by letter as the dot lands. The letters are masked by the rule, so on scroll they sink back into it one by one while the pieces split. On desktop the lockup drifts slightly against the mark's pointer tilt. Its size follows the opening's `--u` unit, and the name stacks on two lines below 761px. Once the name settles, eight tool cards (Photoshop, Illustrator, Canva, Figma, Meta Business Suite, Google Ads, Instagram, CapCut) drift in onto an ellipse around the lockup, float, and drift slightly against the pointer tilt; on hover a logo takes its brand colour and shows its name. On scroll each card flies to its slot beside the discipline it serves just before that line rises, then to the row under the brand line. `script.js` measures those offsets from layout on load, resize and font loading. Phones and landscape phones skip the orbit: cards fade in at their slots. The logos are symbols in the SVG sprite; the tool list lives in the `.opening-tools` markup and its `data-slot` placeholders. On desktop with a mouse, one pointer loop in `script.js` eases the whole mark's tilt (`--tilt-x`, `--tilt-y`) while the opening is on screen. With scroll scenes on, the opening becomes a 330svh track (275svh on mobile) whose sticky stage is a `pin` scroll scene: its progress splits the bars toward the sides (yellow left, red and orange right, the dot away) and uncovers “Branding. Websites. Campaigns. Video.” behind them, one line per piece of the mark. The tools dock beside those lines, the lines lift away, and “One partner. Every business solution.” rises word by word with all the tools gathered in a row beneath it. `--p` keeps the original phase timings (1 is where the old track ended) and runs on to `--stretch` for the later phases. The hero overlaps the last 24vh of the track, and its headline animation waits until the hero is on screen. Mobile uses flat bars, a shorter track and no tilt or sway. Reduced motion and disabled JavaScript show the settled mark in one static viewport.
-- Selected work is a stack of full-width project cards: the image on the left and a panel in the project's own colours on the right, with number and category, title, service tags, a short summary and a rotating “View project” seal. Card colours and the image crop (`--card-bg`, `--card-ink`, `--card-soft`, `--card-accent`, `--image-focus`) are custom properties on each `<article>`. From 1101px wide the cards grow past the text column (up to 1520px); on screens at least 720px tall they are `position: sticky` and stack as they scroll, each settling 16px lower than the one before. Below 900px the image sits above the panel. The image button opens the project preview; clicking the panel does the same.
-- Each card opens once, as it enters: a `clip-path` mask opens the image from the left while the photograph slides in behind it at a slower speed, then the panel's lines rise in sequence. Transitions live on the revealed state, so hiding content before an entrance never animates. The heading lines rise from masks through the same Intersection Observer. On mouse-driven screens one pointer loop eases a subtle image parallax and stops once it settles. Hovering or focusing a card rolls its title to the card's accent colour, fills the seal orange and turns its arrow. Keyboard focus reveals its card. Reduced motion and missing Intersection Observer leave the section static and fully visible, with the seal still.
-- Motion tokens (`--ease-out`, `--ease-in-out`, `--motion-duration`) live in `:root`. Mobile removes large translations, shortens the selected-work slides and depth, and reduces hero layer travel. Reduced motion disables scroll scenes, entrances, smooth scrolling, decorative hover transforms, and crew movement, including live preference changes.
-- The sticky header keeps its original document footprint; the chapter rail, floating menu button and menu overlay the page without shifting sections. `aria-current="location"` identifies the current chapter. Native anchor scrolling retains browser history and respects header clearance.
-- Native service disclosures and project dialogs remain the source of their open/closed state. No replacement accordion or modal library is required.
-
-## Validation
-
-Latest hero checks: Chromium layouts at 320, 375, 390, 768, 1024, 1440, and 1920 px; all three hero images loaded; no horizontal overflow at checked positions; all four project dialogs; all eight service toggles; mobile menu Escape and focus return; actual desktop hero scroll reversal; no captured console errors. DOM tests also cover scene reversal, reduced-motion changes, lifecycle cleanup, and missing Intersection Observer.
-
-See `artifacts/SCROLL-HERO-QA.md` for current evidence and limitations. Earlier screenshots and performance numbers in `artifacts/QA.md` describe the previous hero and are historical. QA artifacts and original full-resolution portraits are excluded from the delivery ZIP.
+There are no invented testimonials, statistics, awards, prices or project results. Service pages for newer divisions say plainly that their images are illustrative rather than completed client work; replace those images with real project photos as work is completed. Crew names and roles come from the owner.
